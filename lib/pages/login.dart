@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:realm/realm.dart';
 import 'package:provider/provider.dart';
+import 'package:test_chat/components/widgets.dart';
 import 'package:test_chat/realm/services/app_services.dart';
+import 'package:test_chat/utils/theme.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -39,11 +41,11 @@ class _Login extends State<Login> {
     final appServices = Provider.of<AppServices>(context, listen: false);
     clearError();
     try {
-      if (isLogin)
-        await appServices.logInUserEmailPassword(_email.text, _password.text);
-      else
-        await appServices.registerUserEmailPassword(
-            _email.text, _password.text);
+      isLogin
+          ? await appServices.logInUserEmailPassword(
+              _email.text, _password.text)
+          : await appServices.registerUserEmailPassword(
+              _email.text, _password.text);
       Navigator.pushNamed(context, '/');
     } on AppException catch (err) {
       setState(() => _error = err.message);
@@ -61,78 +63,49 @@ class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: const Text(''),
-        title: Text(isLogin ? 'Sign in' : 'Sign up'),
+      body: Container(
+        padding: const EdgeInsets.all(25),
+        margin: const EdgeInsets.only(top: 30),
+        child: Form(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(isLogin ? 'Log In' : 'Sign Up',
+                    style: const TextStyle(fontSize: 25)),
+                loginField(_email,
+                    labelText: "Email",
+                    hintText: "Enter valid email like abc@gmail.com"),
+                loginField(_password,
+                    labelText: "Password",
+                    hintText: "Enter secure password",
+                    obscure: true),
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: Text(
+                      "Please login or register with a Device Sync user account. This is separate from your Atlas Cloud login.",
+                      textAlign: TextAlign.center),
+                ),
+                loginButton(context,
+                    child: Text(isLogin ? "Log in" : "Sign up"),
+                    onPressed: () => signINorUP()),
+                TextButton(
+                    onPressed: () => setState(() => isLogin = !isLogin),
+                    child: Text(
+                      isLogin
+                          ? "New to Flutter Realm Todo? Sign up"
+                          : 'Already have an account? Log in.',
+                    )),
+                Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: Text(_error ?? "",
+                      style: errorTextStyle(context),
+                      textAlign: TextAlign.center),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
-      body: Center(
-          child: Column(
-        children: [
-          /*Row(children: [*/
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                    controller: _firstName,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Email')))),
-            Padding(
-                padding: const EdgeInsets.all(10),
-                child: TextField(
-                    controller: _lastName,
-                    decoration: const InputDecoration(
-                        border: OutlineInputBorder(), label: Text('Email')))),
-          Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), label: Text('Email')),
-                controller: _email,
-              )),
-          Padding(
-              padding: const EdgeInsets.all(10),
-              child: TextField(
-                decoration: const InputDecoration(
-                    border: OutlineInputBorder(), label: Text('Password')),
-                controller: _password,
-                obscureText: true,
-              )),
-          ElevatedButton(
-              onPressed: () => setState(() => signINorUP()),
-              child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Text(isLogin ? 'Sign in' : 'Sign up'))),
-          Padding(
-            padding: const EdgeInsets.all(25),
-            child: Text(_error, textAlign: TextAlign.center),
-          ),
-          ElevatedButton(
-            onPressed: () {},
-            style: ButtonStyle(
-              elevation: MaterialStateProperty.all<double>(4),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              )),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: Row(
-                children: const [
-                  SizedBox(width: 10),
-                  Text('Sign up with Google',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ],
-              ),
-            ),
-          ),
-          TextButton(
-              onPressed: () => setState(() => isLogin = !isLogin),
-              child: Text(isLogin ? 'Click to sign up' : 'Click to sign in')),
-        ],
-      )),
     );
   }
 }

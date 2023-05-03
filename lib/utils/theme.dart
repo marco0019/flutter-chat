@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 appThemeData() {
   return ThemeData(
+          useMaterial3: true,
           primarySwatch: forestGreenColor,
           backgroundColor: mistColor,
           colorScheme: ColorScheme.fromSwatch(primarySwatch: forestGreenColor),

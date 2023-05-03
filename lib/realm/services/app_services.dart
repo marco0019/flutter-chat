@@ -25,8 +25,10 @@ class AppServices with ChangeNotifier {
     currentUser = loggedInUser;
     notifyListeners();
     return loggedInUser;
-  }
-
+  }/*
+  Future<void> signInWithGoogle() async{
+    Credentials.googleAuthCode(authCode)
+  }*/
   Future<void> logOut() async {
     await currentUser?.logOut();
     currentUser = null;

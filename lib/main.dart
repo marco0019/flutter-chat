@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:realm/realm.dart';
 import 'package:provider/provider.dart';
-import 'package:test_chat/pages/home.dart';
-import 'package:test_chat/pages/login.dart';
-import 'package:test_chat/realm/services/app_services.dart';
-import 'package:test_chat/realm/services/realm_services.dart';
+import 'package:test_chat/components/change_theme.dart';
+import 'package:test_chat/utils/globals.dart';
+import 'package:test_chat/utils/routes.dart';
+import 'package:test_chat/utils/theme.dart';
+import 'realm/services/app_services.dart';
+import 'realm/services/realm_services.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -25,22 +26,26 @@ void main() {
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    final currentUser = Provider.of<AppServices>(context, listen: false).currentUser;
-
+    final currentUser =
+        Provider.of<AppServices>(context, listen: false).currentUser;
     return WillPopScope(
-      onWillPop: () async => false,
-      child: MaterialApp(
-        title: 'Chat',
-        theme: ThemeData.dark(useMaterial3: true),
-        initialRoute: currentUser != null ? '/' : '/login',
-        routes: {
-          '/': (context) => Home(),
-          '/login': (context) => Login()
-        },
-      ),
-    );
+        onWillPop: () async => false,
+        child: StreamBuilder(
+            builder: (context, snapshot) => snapshot.data!
+                ? MaterialApp(
+                    title: 'Chat',
+                    theme: ThemeData.dark(useMaterial3: true),
+                    initialRoute: currentUser != null ? '/' : '/login',
+                    routes: routes(),
+                  )
+                : MaterialApp(
+                    title: 'Chat',
+                    theme: ThemeData.light(useMaterial3: true),
+                    initialRoute: currentUser != null ? '/' : '/login',
+                    routes: routes(),
+                  ),
+            stream: Stream.value(Globals.theme)));
   }
 }
