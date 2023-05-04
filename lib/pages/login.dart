@@ -16,6 +16,7 @@ class _Login extends State<Login> {
   late TextEditingController _password = TextEditingController();
   late TextEditingController _firstName = TextEditingController();
   late TextEditingController _lastName = TextEditingController();
+  bool rememberMe = false;
   String _error = '';
   bool isLogin = false;
 
@@ -79,12 +80,13 @@ class _Login extends State<Login> {
                     labelText: "Password",
                     hintText: "Enter secure password",
                     obscure: true),
-                const Padding(
-                  padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                  child: Text(
-                      "Please login or register with a Device Sync user account. This is separate from your Atlas Cloud login.",
-                      textAlign: TextAlign.center),
-                ),
+                Container(alignment: Alignment.center, child: Row(children: [Checkbox(
+                  value: rememberMe,
+                  onChanged: (bool? val){
+                    setState(()=>rememberMe = !rememberMe);
+                  },
+                  tristate: false,
+                ), const Text('Do you want to remember me?')])),
                 loginButton(context,
                     child: Text(isLogin ? "Log in" : "Sign up"),
                     onPressed: () => signINorUP()),

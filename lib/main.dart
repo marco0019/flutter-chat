@@ -6,6 +6,7 @@ import 'package:test_chat/utils/routes.dart';
 import 'package:test_chat/utils/theme.dart';
 import 'realm/services/app_services.dart';
 import 'realm/services/realm_services.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() {
   runApp(MultiProvider(providers: [
@@ -32,20 +33,13 @@ class App extends StatelessWidget {
         Provider.of<AppServices>(context, listen: false).currentUser;
     return WillPopScope(
         onWillPop: () async => false,
-        child: StreamBuilder(
-            builder: (context, snapshot) => snapshot.data!
-                ? MaterialApp(
+        child: MaterialApp(
                     title: 'Chat',
-                    theme: ThemeData.dark(useMaterial3: true),
-                    initialRoute: currentUser != null ? '/' : '/login',
-                    routes: routes(),
-                  )
-                : MaterialApp(
-                    title: 'Chat',
+                    darkTheme: ThemeData.dark(useMaterial3: true),
                     theme: ThemeData.light(useMaterial3: true),
+                    themeMode: Globals.currentTheme(context),
                     initialRoute: currentUser != null ? '/' : '/login',
                     routes: routes(),
-                  ),
-            stream: Stream.value(Globals.theme)));
+                  ));
   }
 }

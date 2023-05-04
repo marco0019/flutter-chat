@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.test_chat">
    <application
-        android:label="Flutter app"
+        android:label="Marco's app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -30,6 +30,5 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-            <uses-permission android:name="android.permission.INTERNET"/>
     </application>
 </manifest>

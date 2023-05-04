@@ -11,10 +11,8 @@ class ChangeTheme extends StatefulWidget {
 class _ChangeTheme extends State<ChangeTheme> {
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-        builder: (context, snapshot) => IconButton(
+    return IconButton(
             onPressed: () => Globals.changeTheme(),
-            icon: Icon(snapshot.data! ? FontAwesomeIcons.moon : FontAwesomeIcons.sun)),
-        stream: Stream.value(Globals.theme));
+            icon: Icon(Globals.theme ? FontAwesomeIcons.moon : FontAwesomeIcons.sun));
   }
 }

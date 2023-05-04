@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/components/change_theme.dart';
 import 'package:test_chat/components/chats.dart';
@@ -13,6 +14,7 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  int _currentIndex = 0;
   void logOut(BuildContext context, AppServices _appServices) {
     _appServices.logOut();
     Navigator.pushNamed(context, '/login');
@@ -23,7 +25,7 @@ class _Home extends State<Home> {
     final appServices = Provider.of<AppServices>(context, listen: false);
     return Scaffold(
         appBar: AppBar(
-          leading: ChangeTheme(),
+          leading: const ChangeTheme(),
           title: const Text('Chats'),
           actions: [
             IconButton(
@@ -50,12 +52,7 @@ class _Home extends State<Home> {
             ),
           ],
         ),
-        body: Container(
-          child: ListView(children: [
-            StreamBuilder(
-              builder: (context, snapshot) => Text(snapshot.data.toString()),
-              stream: Stream.value(Globals.theme),
-            ),
+        body: ListView(children: [
             chatCard(
                 chatName: 'Global',
                 lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
@@ -64,14 +61,14 @@ class _Home extends State<Home> {
                 isMyMessage: true,
                 stateOfMessage: 1),
             chatCard(
-                chatName: 'Global',
+                chatName: Globals.theme.toString(),
                 lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
                 lastDate: DateTime.now(),
                 typeOfMessage: 'text',
-                isMyMessage: true,
+                isMyMessage: false,
                 stateOfMessage: 1),
             chatCard(
-                chatName: 'Global',
+                chatName: _currentIndex.toString(),
                 lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
                 lastDate: DateTime.now(),
                 typeOfMessage: 'text',
@@ -162,6 +159,25 @@ class _Home extends State<Home> {
                 isMyMessage: true,
                 stateOfMessage: 1),
           ]),
-        ));
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (int index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.home),label: ''
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.userFriends),label: ''
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(FontAwesomeIcons.gear),label: ''
+          ),
+        ],
+      )
+        );
   }
 }

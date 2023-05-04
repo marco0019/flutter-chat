@@ -10,18 +10,15 @@ Widget chatCard(
     required stateOfMessage,
     required isMyMessage}) {
   return Container(
-      padding: const EdgeInsets.all(10),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         onTap: () {},
-        child: Padding(
-          padding: EdgeInsets.all(10),
-          child: Row(
+        child: Padding(padding: EdgeInsets.all(10), child: Row(
             children: [
-              const CircleAvatar(
+              const Padding(padding: EdgeInsets.all(10),child: CircleAvatar(
                 backgroundImage: NetworkImage(
                     'https://images.unsplash.com/photo-1682999029155-d8b26349468f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3135&q=80'),
-              ),
+              )),
               const SizedBox(width: 16.0),
               Expanded(
                 child: Column(
@@ -30,7 +27,7 @@ Widget chatCard(
                     Text(
                       chatName,
                       style: const TextStyle(
-                        fontSize: 20.0,
+                        fontSize: 18.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -40,7 +37,7 @@ Widget chatCard(
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       style: const TextStyle(
-                        fontSize: 18.0,
+                        fontSize: 16.0,
                       ),
                     ),
                   ],
@@ -56,7 +53,8 @@ Widget chatCard(
             ],
           ),
         ),
-      ));
+      )
+  );
 }
 
 IconData stateMessage({required isMy, required state}) {
