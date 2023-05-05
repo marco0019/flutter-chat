@@ -47,6 +47,9 @@ class _Login extends State<Login> {
               _email.text, _password.text)
           : await appServices.registerUserEmailPassword(
               _email.text, _password.text);
+      if(isLogin){
+        appServices.registerLocal(email: _email.text, password: _password.text);
+      }
       Navigator.pushNamed(context, '/');
     } on AppException catch (err) {
       setState(() => _error = err.message);

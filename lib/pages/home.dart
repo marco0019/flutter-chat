@@ -53,131 +53,127 @@ class _Home extends State<Home> {
           ],
         ),
         body: ListView(children: [
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: Globals.theme.toString(),
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: false,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: _currentIndex.toString(),
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-            chatCard(
-                chatName: 'Global',
-                lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-                lastDate: DateTime.now(),
-                typeOfMessage: 'text',
-                isMyMessage: true,
-                stateOfMessage: 1),
-          ]),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.home),label: ''
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.userFriends),label: ''
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.gear),label: ''
-          ),
-        ],
-      )
-        );
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: Globals.theme.toString(),
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: false,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: _currentIndex.toString(),
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: appServices.credentials()[0],
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+          chatCard(
+              chatName: 'Global',
+              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
+              lastDate: DateTime.now(),
+              typeOfMessage: 'text',
+              isMyMessage: true,
+              stateOfMessage: 1),
+        ]),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.home), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.userFriends), label: ''),
+            BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.gear), label: ''),
+          ],
+        ));
   }
 }

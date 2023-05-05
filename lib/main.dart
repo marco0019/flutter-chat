@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_chat/components/change_theme.dart';
 import 'package:test_chat/utils/globals.dart';
 import 'package:test_chat/utils/routes.dart';
-import 'package:test_chat/utils/theme.dart';
 import 'realm/services/app_services.dart';
 import 'realm/services/realm_services.dart';
 import 'package:get_storage/get_storage.dart';
@@ -14,7 +12,7 @@ void main() {
         create: (_) => AppServices(
             'realtimeapp-buvbz', Uri.parse('https://realm.mongodb.com'))),
     ChangeNotifierProxyProvider<AppServices, RealmServices?>(
-        // RealmServices can only be initialized only if the user is logged in.
+// RealmServices can only be initialized only if the user is logged in.
         create: (context) => null,
         update: (BuildContext context, AppServices appServices,
             RealmServices? realmServices) {
@@ -34,12 +32,12 @@ class App extends StatelessWidget {
     return WillPopScope(
         onWillPop: () async => false,
         child: MaterialApp(
-                    title: 'Chat',
-                    darkTheme: ThemeData.dark(useMaterial3: true),
-                    theme: ThemeData.light(useMaterial3: true),
-                    themeMode: Globals.currentTheme(context),
-                    initialRoute: currentUser != null ? '/' : '/login',
-                    routes: routes(),
-                  ));
+          title: 'Chat',
+          darkTheme: ThemeData.dark(useMaterial3: true),
+          theme: ThemeData.light(useMaterial3: true),
+          themeMode: Globals.currentTheme(context),
+          initialRoute: currentUser != null ? '/' : '/login',
+          routes: routes(),
+        ));
   }
 }
