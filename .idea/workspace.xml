@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c5f40cc0-9b17-48c4-99b4-92f968421fe9" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/components/app_bar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/app_bar.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/login.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/realm/services/app_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/realm/services/app_services.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/chats.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/chats.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/components/friend_card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/components/friend_card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/friends_requests.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home/friends_requests.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/messages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/home/messages.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +41,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Marco\Desktop\flutter-chat\lib\pages\home" />
       <recent name="C:\Users\Marco\Desktop\flutter-chat\images" />
     </key>
   </component>

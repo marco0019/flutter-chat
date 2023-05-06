@@ -8,8 +8,7 @@ Widget chatCard(
     required lastDate,
     required typeOfMessage,
     required stateOfMessage,
-    required isMyMessage}) {
-  return Container(
+    required isMyMessage}) => Container(
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
         onTap: () {},
@@ -55,7 +54,6 @@ Widget chatCard(
         ),
       )
   );
-}
 
 IconData stateMessage({required isMy, required state}) {
   if (isMy) {
