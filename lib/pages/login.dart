@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/components/widgets.dart';
 import 'package:test_chat/realm/services/app_services.dart';
-import 'package:test_chat/utils/theme.dart';
+import 'package:test_chat/utils/colors.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,13 +13,14 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+  final box = GetStorage();
   late TextEditingController _email = TextEditingController();
   late TextEditingController _password = TextEditingController();
   late TextEditingController _firstName = TextEditingController();
   late TextEditingController _lastName = TextEditingController();
   bool rememberMe = false;
   String _error = '';
-  bool isLogin = false;
+  bool isLogin = true;
 
   @override
   void initState() {
@@ -47,9 +49,7 @@ class _Login extends State<Login> {
               _email.text, _password.text)
           : await appServices.registerUserEmailPassword(
               _email.text, _password.text);
-      if(isLogin){
-        appServices.registerLocal(email: _email.text, password: _password.text);
-      }
+      appServices.registerLocal(email: _email.text, password: _password.text);
       Navigator.pushNamed(context, '/');
     } on AppException catch (err) {
       setState(() => _error = err.message);
@@ -83,13 +83,19 @@ class _Login extends State<Login> {
                     labelText: "Password",
                     hintText: "Enter secure password",
                     obscure: true),
-                Container(alignment: Alignment.center, child: Row(children: [Checkbox(
-                  value: rememberMe,
-                  onChanged: (bool? val){
-                    setState(()=>rememberMe = !rememberMe);
-                  },
-                  tristate: false,
-                ), const Text('Do you want to remember me?')])),
+                Container(
+                    alignment: Alignment.center,
+                    child: Row(children: [
+                      Checkbox(
+                        value: rememberMe,
+                        onChanged: (bool? val) {
+                          setState(() => rememberMe = !rememberMe);
+                        },
+                        tristate: false,
+                      ),
+                      const Text('Do you want to remember me?')
+                    ])),
+                Text(box.read('password') ?? 'null'),
                 loginButton(context,
                     child: Text(isLogin ? "Log in" : "Sign up"),
                     onPressed: () => signINorUP()),
@@ -102,7 +108,7 @@ class _Login extends State<Login> {
                     )),
                 Padding(
                   padding: const EdgeInsets.all(25),
-                  child: Text(_error ?? "",
+                  child: Text(_error,
                       style: errorTextStyle(context),
                       textAlign: TextAlign.center),
                 ),

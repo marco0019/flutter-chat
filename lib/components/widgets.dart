@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_chat/utils/theme.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:test_chat/utils/colors.dart';
 
 Widget formLayout(BuildContext context, Widget? contentWidget) {
   return Padding(
@@ -188,5 +189,15 @@ Container waitingIndicator() {
   return Container(
     color: Colors.black.withOpacity(0.2),
     child: const Center(child: CircularProgressIndicator()),
+  );
+}
+
+Widget inputSender() {
+  final TextEditingController input = TextEditingController();
+  return Row(
+    children: [
+      loginField(input),
+      IconButton(onPressed: () {}, icon: const Icon(FontAwesomeIcons.plane))
+    ],
   );
 }

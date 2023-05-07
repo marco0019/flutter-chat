@@ -5,9 +5,11 @@ part 'item.g.dart';
 class _Item {
   @MapTo('_id')
   @PrimaryKey()
+  
   late ObjectId id;
   bool isComplete = false;
   late String summary;
+
   @MapTo('owner_id')
   late String ownerId;
 }

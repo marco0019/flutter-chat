@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
-import 'package:test_chat/components/change_theme.dart';
-import 'package:test_chat/components/chats.dart';
-import 'package:test_chat/components/dropdown.dart';
-import 'package:test_chat/components/popup.dart';
+import 'package:test_chat/components/app_bar/change_theme.dart';
+import 'package:test_chat/components/app_bar/logout.dart';
+import 'package:test_chat/components/chats/chat_item.dart';
+import 'package:test_chat/components/friends/friend_list.dart';
+import 'package:test_chat/components/widgets.dart';
+import 'package:test_chat/pages/home/chats.dart';
+import 'package:test_chat/pages/home/settings.dart';
 import 'package:test_chat/realm/services/app_services.dart';
-import 'package:test_chat/utils/globals.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -14,166 +17,29 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
+  final TextEditingController _friendController = TextEditingController();
   int _currentIndex = 0;
-  void logOut(BuildContext context, AppServices _appServices) {
-    _appServices.logOut();
-    Navigator.pushNamed(context, '/login');
-  }
-
   @override
   Widget build(BuildContext context) {
     final appServices = Provider.of<AppServices>(context, listen: false);
-    return Scaffold(
-        appBar: AppBar(
-          leading: const ChangeTheme(),
-          title: const Text('Chats'),
-          actions: [
-            IconButton(
-              onPressed: () {
-                // Mostra il popup quando l'utente fa clic sul pulsante.
-                popup(context,
-                    title: "Do you want to sign out",
-                    subtitle: "Are you sure? This action is irreversible!",
-                    widgets: [
-                      ElevatedButton(
-                        child: const Text("Cancel"),
-                        onPressed: () => Navigator.of(context).pop(),
-                      ),
-                      ElevatedButton(
-                        child: const Text("Sign out"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          logOut(context, appServices);
-                        },
-                      ),
-                    ]);
-              },
-              icon: const Icon(Icons.logout),
-            ),
-          ],
-        ),
-        body: ListView(children: [
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: Globals.theme.toString(),
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: false,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: _currentIndex.toString(),
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: appServices.credentials()[0],
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-          chatCard(
-              chatName: 'Global',
-              lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
-              lastDate: DateTime.now(),
-              typeOfMessage: 'text',
-              isMyMessage: true,
-              stateOfMessage: 1),
-        ]),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (int index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.home), label: ''),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.userFriends), label: ''),
-            BottomNavigationBarItem(
-                icon: Icon(FontAwesomeIcons.gear), label: ''),
-          ],
-        ));
+
+    final List<Widget> pages = [Chats(), FriendRequests(), Settings()];
+
+    return DefaultTabController(
+        length: 3,
+        child: Scaffold(
+            appBar: AppBar(
+                toolbarHeight: 60,
+                leading: const ChangeTheme(),
+                title: const Text('Chats'),
+                actions: [logout(context, appServices)],
+                bottom: const TabBar(
+                  tabs: [
+                    Tab(icon: Icon(Icons.directions_car)),
+                    Tab(icon: Icon(Icons.directions_transit)),
+                    Tab(icon: Icon(Icons.directions_bike)),
+                  ],
+                )),
+            body: TabBarView(children: pages)));
   }
 }

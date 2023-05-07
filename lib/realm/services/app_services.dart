@@ -7,28 +7,29 @@ class AppServices with ChangeNotifier {
   Uri baseUrl;
   App app;
   User? currentUser;
+  GetStorage box = GetStorage();
   AppServices(this.id, this.baseUrl)
-      : app = App(AppConfiguration(id, baseUrl: baseUrl)){
+      : app = App(AppConfiguration(id, baseUrl: baseUrl)) {
     initStorage();
-    if(isRegisteredLocal()) {
-      final user_pass = credentials();
-      logInUserEmailPassword(user_pass[0], user_pass[1]);
+    if (isRegisteredLocal()) {
+      final userPass = credentials();
+      logInUserEmailPassword(userPass[0], userPass[1]);
+      notifyListeners();
     }
   }
-  void initStorage() async => await GetStorage.init();
 
-  void registerLocal({required email, required password}) async{
-    final box = GetStorage();
+  void registerLocal({required email, required password}) {
     box.write('username', email);
     box.write('password', password);
   }
 
-  bool isRegisteredLocal(){
-    final box = GetStorage();
+  void initStorage() async => GetStorage.init();
+
+  bool isRegisteredLocal() {
     return box.read('password') != null;
   }
-  List<String> credentials(){
-    final box = GetStorage();
+
+  List<String> credentials() {
     final email = box.read('username');
     final password = box.read('password');
     return [email, password];
@@ -50,10 +51,11 @@ class AppServices with ChangeNotifier {
     currentUser = loggedInUser;
     notifyListeners();
     return loggedInUser;
-  }/*
+  } /*
   Future<void> signInWithGoogle() async{
     Credentials.googleAuthCode(authCode)
   }*/
+
   Future<void> logOut() async {
     await currentUser?.logOut();
     currentUser = null;

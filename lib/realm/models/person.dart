@@ -1,11 +1,12 @@
+import 'package:flutter/material.dart';
 import 'package:realm/realm.dart';
 part 'person.g.dart';
 
 @RealmModel()
 class _Person {
   @PrimaryKey()
-  @MapTo('id')
-  late int id;
+  @MapTo('nickName')
+  late String nickName;
 
   @MapTo('firstName')
   late String firstName;

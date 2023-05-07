@@ -8,12 +8,12 @@ part of 'person.dart';
 
 class Person extends _Person with RealmEntity, RealmObjectBase, RealmObject {
   Person(
-    int id,
+    String nickName,
     String firstName,
     String lastName,
     DateTime birthdate,
   ) {
-    RealmObjectBase.set(this, 'id', id);
+    RealmObjectBase.set(this, 'nickName', nickName);
     RealmObjectBase.set(this, 'firstName', firstName);
     RealmObjectBase.set(this, 'lastName', lastName);
     RealmObjectBase.set(this, 'birthdate', birthdate);
@@ -22,9 +22,10 @@ class Person extends _Person with RealmEntity, RealmObjectBase, RealmObject {
   Person._();
 
   @override
-  int get id => RealmObjectBase.get<int>(this, 'id') as int;
+  String get nickName =>
+      RealmObjectBase.get<String>(this, 'nickName') as String;
   @override
-  set id(int value) => RealmObjectBase.set(this, 'id', value);
+  set nickName(String value) => RealmObjectBase.set(this, 'nickName', value);
 
   @override
   String get firstName =>
@@ -57,7 +58,7 @@ class Person extends _Person with RealmEntity, RealmObjectBase, RealmObject {
   static SchemaObject _initSchema() {
     RealmObjectBase.registerFactory(Person._);
     return const SchemaObject(ObjectType.realmObject, Person, 'Person', [
-      SchemaProperty('id', RealmPropertyType.int, primaryKey: true),
+      SchemaProperty('nickName', RealmPropertyType.string, primaryKey: true),
       SchemaProperty('firstName', RealmPropertyType.string),
       SchemaProperty('lastName', RealmPropertyType.string),
       SchemaProperty('birthdate', RealmPropertyType.timestamp),

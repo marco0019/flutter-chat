@@ -8,6 +8,6 @@ class FriendRequest extends StatefulWidget {
 class _FriendRequest extends State<FriendRequest> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Container();
   }
 }
