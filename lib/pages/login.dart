@@ -5,6 +5,7 @@ import 'package:realm/realm.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/components/widgets.dart';
 import 'package:test_chat/realm/services/app_services.dart';
+import 'package:test_chat/realm/services/realm_services.dart';
 import 'package:test_chat/utils/colors.dart';
 
 class Login extends StatefulWidget {
@@ -13,8 +14,8 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
-  final box = GetStorage();
   late TextEditingController _email = TextEditingController();
+  late TextEditingController _nickName = TextEditingController();
   late TextEditingController _password = TextEditingController();
   late TextEditingController _firstName = TextEditingController();
   late TextEditingController _lastName = TextEditingController();
@@ -24,6 +25,7 @@ class _Login extends State<Login> {
 
   @override
   void initState() {
+    _nickName = TextEditingController()..addListener(clearError);
     _firstName = TextEditingController()..addListener(clearError);
     _lastName = TextEditingController()..addListener(clearError);
     _email = TextEditingController()..addListener(clearError);
@@ -33,6 +35,7 @@ class _Login extends State<Login> {
 
   @override
   void dispose() {
+    _nickName.dispose();
     _email.dispose();
     _password.dispose();
     _firstName.dispose();
@@ -42,14 +45,21 @@ class _Login extends State<Login> {
 
   Future<void> signINorUP() async {
     final appServices = Provider.of<AppServices>(context, listen: false);
+    final db = Provider.of<RealmServices>(context, listen: false);
     clearError();
     try {
-      isLogin
-          ? await appServices.logInUserEmailPassword(
-              _email.text, _password.text)
-          : await appServices.registerUserEmailPassword(
-              _email.text, _password.text);
-      appServices.registerLocal(email: _email.text, password: _password.text);
+      if (isLogin) {
+        await appServices.logInUserEmailPassword(_email.text, _password.text);
+      } else {
+        db.register(_nickName.text, _firstName.text, _lastName.text,
+            _email.text, _password.text);
+
+        await appServices.registerUserEmailPassword(
+            _email.text, _password.text);
+      }
+      if (rememberMe) {
+        appServices.registerLocal(email: _email.text, password: _password.text);
+      }
       Navigator.pushNamed(context, '/');
     } on AppException catch (err) {
       setState(() => _error = err.message);
@@ -76,6 +86,21 @@ class _Login extends State<Login> {
               children: [
                 Text(isLogin ? 'Log In' : 'Sign Up',
                     style: const TextStyle(fontSize: 25)),
+                !isLogin
+                    ? loginField(_nickName,
+                        labelText: "Nick name",
+                        hintText: "Enter your first name")
+                    : const SizedBox(),
+                !isLogin
+                    ? loginField(_firstName,
+                        labelText: "First name",
+                        hintText: "Enter your first name")
+                    : const SizedBox(),
+                !isLogin
+                    ? loginField(_lastName,
+                        labelText: "Last name",
+                        hintText: "Enter your last name")
+                    : const SizedBox(),
                 loginField(_email,
                     labelText: "Email",
                     hintText: "Enter valid email like abc@gmail.com"),
@@ -95,8 +120,8 @@ class _Login extends State<Login> {
                       ),
                       const Text('Do you want to remember me?')
                     ])),
-                Text(box.read('password') ?? 'null'),
-                loginButton(context,
+                const Text('box.read() ?? '),
+                ElevatedButton(
                     child: Text(isLogin ? "Log in" : "Sign up"),
                     onPressed: () => signINorUP()),
                 TextButton(

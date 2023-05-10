@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
+import 'package:test_chat/realm/services/realm_services.dart';
 
 class AppServices with ChangeNotifier {
   String id;
@@ -11,9 +13,10 @@ class AppServices with ChangeNotifier {
   AppServices(this.id, this.baseUrl)
       : app = App(AppConfiguration(id, baseUrl: baseUrl)) {
     initStorage();
-    if (isRegisteredLocal()) {
+    box = GetStorage();
+    if (box.read('password') != null) {
       final userPass = credentials();
-      logInUserEmailPassword(userPass[0], userPass[1]);
+      //logInUserEmailPassword(userPass[0], userPass[1]);
       notifyListeners();
     }
   }
@@ -21,13 +24,19 @@ class AppServices with ChangeNotifier {
   void registerLocal({required email, required password}) {
     box.write('username', email);
     box.write('password', password);
+    //notifyListeners();
+  }
+
+  String initialRoute() {
+    if (app.currentUser == null) {
+      return '/login';
+    } else {
+      logInUserEmailPassword(box.read('username'), box.read('password'));
+      return '/';
+    }
   }
 
   void initStorage() async => GetStorage.init();
-
-  bool isRegisteredLocal() {
-    return box.read('password') != null;
-  }
 
   List<String> credentials() {
     final email = box.read('username');
@@ -43,7 +52,8 @@ class AppServices with ChangeNotifier {
     return loggedInUser;
   }
 
-  Future<User> registerUserEmailPassword(String email, String password) async {
+  Future<User> registerUserEmailPassword(String email,
+      String password) async {
     EmailPasswordAuthProvider authProvider = EmailPasswordAuthProvider(app);
     await authProvider.registerUser(email, password);
     User loggedInUser =

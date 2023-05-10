@@ -1,20 +1,40 @@
 import 'package:flutter/material.dart';
 
-Widget dropDown() => DropdownButton(
-      icon: const Icon(Icons.arrow_downward),
-      iconSize: 24,
-      elevation: 16,
-      style: const TextStyle(color: Colors.deepPurple),
-      underline: Container(
-        height: 2,
-        color: Colors.deepPurpleAccent,
-      ),
-      onChanged: (value) => {},
-      items: <String>['Option 1', 'Option 2', 'Option 3', 'Option 4']
-          .map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
+class MenuButton extends StatefulWidget {
+  final List<MenuItemButton> menuItems;
+  const MenuButton({Key? key, required this.menuItems}) : super(key: key);
+
+  @override
+  _DropdownButtonState createState() => _DropdownButtonState();
+}
+
+class _DropdownButtonState extends State<MenuButton> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  List<Widget> itemsMenu() {
+    final menuItems = <Widget>[];
+    return menuItems;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MenuAnchor(
+      builder: (context, controller, child) {
+        return FilledButton.tonal(
+          onPressed: () {
+            if (controller.isOpen) {
+              controller.close();
+            } else {
+              controller.open();
+            }
+          },
+          child: const Text('Show menu'),
         );
-      }).toList(),
+      },
+      menuChildren: widget.menuItems.map((item) => item).toList(),
     );
+  }
+}

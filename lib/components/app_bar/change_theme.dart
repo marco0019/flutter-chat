@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/utils/theme.dart';
 
@@ -11,14 +10,24 @@ class ChangeTheme extends StatefulWidget {
 }
 
 class _ChangeTheme extends State<ChangeTheme> {
-  final box = GetStorage();
+  final MaterialStateProperty<Icon?> thumbIcon =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      // Thumb icon when the switch is selected.
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(FontAwesomeIcons.moon);
+      }
+      return const Icon(FontAwesomeIcons.sun);
+    },
+  );
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
-    return IconButton(
-        onPressed: () => theme.toggleTheme(),
-        icon: Icon(
-            theme.isDarkMode ? FontAwesomeIcons.moon : FontAwesomeIcons.sun,
-            size: 20,));
+    return Switch(
+      thumbIcon: thumbIcon,
+      value: theme.isDarkMode,
+      activeColor: Colors.purple,
+      onChanged: (bool value) => theme.toggleTheme(),
+    );
   }
 }
