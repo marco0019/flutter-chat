@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:test_chat/components/popup.dart';
 import 'package:test_chat/realm/services/app_services.dart';
-
+/// Creates a Material Design app bar.
+  ///
+  /// The arguments [primary], [toolbarOpacity], [bottomOpacity],
+  /// [backwardsCompatibility], and [automaticallyImplyLeading] must
+  /// not be null. Additionally, if [elevation] is specified, it must
+  /// be non-negative.
+  ///
+  /// Typically used in the [Scaffold.appBar] property.
 Widget logout(BuildContext context, AppServices appServices) => IconButton(
       onPressed: () {
         // Mostra il popup quando l'utente fa clic sul pulsante.

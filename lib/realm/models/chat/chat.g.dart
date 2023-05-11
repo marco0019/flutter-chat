@@ -17,12 +17,12 @@ class Chat extends _Chat with RealmEntity, RealmObjectBase, RealmObject {
     ObjectId senderId,
   ) {
     RealmObjectBase.set(this, '_id', id);
-    RealmObjectBase.set(this, 'chat_name', chatName);
-    RealmObjectBase.set(this, 'last_message', lastMessage);
-    RealmObjectBase.set(this, 'last_date', lastDate);
-    RealmObjectBase.set(this, 'type_message', typeOfMessage);
-    RealmObjectBase.set(this, 'state_message', stateOfMessage);
-    RealmObjectBase.set(this, 'sender_id', senderId);
+    RealmObjectBase.set(this, 'chatName', chatName);
+    RealmObjectBase.set(this, 'lastMessage', lastMessage);
+    RealmObjectBase.set(this, 'lastDate', lastDate);
+    RealmObjectBase.set(this, 'typeOfMessage', typeOfMessage);
+    RealmObjectBase.set(this, 'stateOfMessage', stateOfMessage);
+    RealmObjectBase.set(this, 'senderId', senderId);
   }
 
   Chat._();
@@ -34,42 +34,42 @@ class Chat extends _Chat with RealmEntity, RealmObjectBase, RealmObject {
 
   @override
   String get chatName =>
-      RealmObjectBase.get<String>(this, 'chat_name') as String;
+      RealmObjectBase.get<String>(this, 'chatName') as String;
   @override
-  set chatName(String value) => RealmObjectBase.set(this, 'chat_name', value);
+  set chatName(String value) => RealmObjectBase.set(this, 'chatName', value);
 
   @override
   String get lastMessage =>
-      RealmObjectBase.get<String>(this, 'last_message') as String;
+      RealmObjectBase.get<String>(this, 'lastMessage') as String;
   @override
   set lastMessage(String value) =>
-      RealmObjectBase.set(this, 'last_message', value);
+      RealmObjectBase.set(this, 'lastMessage', value);
 
   @override
   DateTime get lastDate =>
-      RealmObjectBase.get<DateTime>(this, 'last_date') as DateTime;
+      RealmObjectBase.get<DateTime>(this, 'lastDate') as DateTime;
   @override
-  set lastDate(DateTime value) => RealmObjectBase.set(this, 'last_date', value);
+  set lastDate(DateTime value) => RealmObjectBase.set(this, 'lastDate', value);
 
   @override
   String get typeOfMessage =>
-      RealmObjectBase.get<String>(this, 'type_message') as String;
+      RealmObjectBase.get<String>(this, 'typeOfMessage') as String;
   @override
   set typeOfMessage(String value) =>
-      RealmObjectBase.set(this, 'type_message', value);
+      RealmObjectBase.set(this, 'typeOfMessage', value);
 
   @override
   int get stateOfMessage =>
-      RealmObjectBase.get<int>(this, 'state_message') as int;
+      RealmObjectBase.get<int>(this, 'stateOfMessage') as int;
   @override
   set stateOfMessage(int value) =>
-      RealmObjectBase.set(this, 'state_message', value);
+      RealmObjectBase.set(this, 'stateOfMessage', value);
 
   @override
   ObjectId get senderId =>
-      RealmObjectBase.get<ObjectId>(this, 'sender_id') as ObjectId;
+      RealmObjectBase.get<ObjectId>(this, 'senderId') as ObjectId;
   @override
-  set senderId(ObjectId value) => RealmObjectBase.set(this, 'sender_id', value);
+  set senderId(ObjectId value) => RealmObjectBase.set(this, 'senderId', value);
 
   @override
   Stream<RealmObjectChanges<Chat>> get changes =>
@@ -85,17 +85,12 @@ class Chat extends _Chat with RealmEntity, RealmObjectBase, RealmObject {
     return const SchemaObject(ObjectType.realmObject, Chat, 'Chat', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
-      SchemaProperty('chatName', RealmPropertyType.string, mapTo: 'chat_name'),
-      SchemaProperty('lastMessage', RealmPropertyType.string,
-          mapTo: 'last_message'),
-      SchemaProperty('lastDate', RealmPropertyType.timestamp,
-          mapTo: 'last_date'),
-      SchemaProperty('typeOfMessage', RealmPropertyType.string,
-          mapTo: 'type_message'),
-      SchemaProperty('stateOfMessage', RealmPropertyType.int,
-          mapTo: 'state_message'),
-      SchemaProperty('senderId', RealmPropertyType.objectid,
-          mapTo: 'sender_id'),
+      SchemaProperty('chatName', RealmPropertyType.string),
+      SchemaProperty('lastMessage', RealmPropertyType.string),
+      SchemaProperty('lastDate', RealmPropertyType.timestamp),
+      SchemaProperty('typeOfMessage', RealmPropertyType.string),
+      SchemaProperty('stateOfMessage', RealmPropertyType.int),
+      SchemaProperty('senderId', RealmPropertyType.objectid),
     ]);
   }
 }

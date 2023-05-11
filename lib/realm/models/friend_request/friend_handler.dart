@@ -1,29 +1,34 @@
+import 'package:flutter/foundation.dart';
 import 'package:realm/realm.dart';
 import 'package:test_chat/realm/models/friend_request/friends.dart';
-import 'package:test_chat/realm/services/init_services.dart';
 
-class FriendHandler extends InitServices {
+class FriendHandler with ChangeNotifier {
   final List<Friends> friends = [];
-  FriendHandler(super.app) {
+  late Realm realm;
+  App app;
+  FriendHandler(this.app) {
     init();
   }
-  @override
   void init() async {
-    realm = await Realm.open(
-        Configuration.flexibleSync(currentUser!, [Friends.schema]));
+    realm =
+        Realm(Configuration.flexibleSync(app.currentUser!, [Friends.schema]));
+    realm.subscriptions.update((mutableSubscriptions) {
+      mutableSubscriptions.clear();
+      mutableSubscriptions.add(realm.all<Friends>(),
+          name: 'getAllItemsSubscription');
+    });
+    await realm.subscriptions.waitForSynchronization();
   }
 
-  @override
-  Future<void> compose() async {
-    final results = realm.all();
-    for (final docs in results) {
-      //friends.add();
-      print(docs);
+  void sendRequest(
+      {required String currentName, required String friendName}) {
+    try {
+      Friends friend = Friends(ObjectId(), currentName, friendName, 'waiting');
+      realm.write<Friends>(() => realm.add<Friends>(friend));
+      friends.add(friend);
+      notifyListeners();
+    } on RealmException catch (err) {
+      print(err.message);
     }
-    notifyListeners();
-  }
-
-  void sendRequest() async {
-    //realm.add(Friends(, receivedName, state))
   }
 }

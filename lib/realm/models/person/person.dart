@@ -7,6 +7,8 @@ class _Person {
   @MapTo('_id')
   late ObjectId id;
 
+  late String userId;
+
   late String nickName;
 
   late String firstName;

@@ -10,7 +10,6 @@ import 'package:test_chat/realm/services/realm_services.dart';
 class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final realmServices = Provider.of<RealmServices>(context, listen: false);
     final appServices = Provider.of<AppServices>(context, listen: false);
     return ListView(
       children: [
@@ -41,8 +40,8 @@ class Settings extends StatelessWidget {
         rowItem(FontAwesomeIcons.user, 'Log out', logout(context, appServices)),
         rowItem(
             FontAwesomeIcons.iceCream,
-            realmServices.currentPerson.email,
-            Text(realmServices.currentPerson.email))
+            appServices.handlePerson.currentPerson.email,
+            Text(appServices.handlePerson.currentPerson.password))
       ],
     );
   }

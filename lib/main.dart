@@ -5,7 +5,6 @@ import 'package:test_chat/utils/routes.dart';
 import 'package:test_chat/utils/theme.dart';
 import 'realm/services/app_services.dart';
 
-
 void main() {
   runApp(MultiProvider(
     providers: [
@@ -29,15 +28,14 @@ void main() {
         create: (_) => ThemeModel(),
       ),
     ],
-    child: const App(),
+    child: const Main(),
   ));
 }
 
-class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+class Main extends StatelessWidget {
+  const Main({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final appServices = Provider.of<AppServices>(context);
     final theme = Provider.of<ThemeModel>(context);
     return WillPopScope(
         child: MaterialApp(
@@ -45,7 +43,7 @@ class App extends StatelessWidget {
           themeMode: theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           theme: ThemeData.light(useMaterial3: true),
           darkTheme: ThemeData.dark(useMaterial3: true),
-          initialRoute: appServices.app.currentUser == null ? '/login' : '/',
+          initialRoute: Provider.of<AppServices>(context, listen: false).app.currentUser == null ? '/login' : '/',
           routes: routes(),
         ),
         onWillPop: () async => false);

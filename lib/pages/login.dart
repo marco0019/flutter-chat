@@ -51,11 +51,15 @@ class _Login extends State<Login> {
       if (isLogin) {
         await appServices.logInUserEmailPassword(_email.text, _password.text);
       } else {
-        db.register(_nickName.text, _firstName.text, _lastName.text,
-            _email.text, _password.text);
+        //db.register(_nickName.text, _firstName.text, _lastName.text,
+        //    _email.text, _password.text);
 
         await appServices.registerUserEmailPassword(
-            _email.text, _password.text);
+            nickName: _nickName.text,
+            firstName: _firstName.text,
+            lastName: _lastName.text,
+            email: _email.text,
+            password: _password.text);
       }
       if (rememberMe) {
         appServices.registerLocal(email: _email.text, password: _password.text);

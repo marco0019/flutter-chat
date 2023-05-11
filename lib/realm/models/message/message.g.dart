@@ -19,8 +19,8 @@ class Message extends _Message with RealmEntity, RealmObjectBase, RealmObject {
     RealmObjectBase.set(this, 'type', type);
     RealmObjectBase.set(this, 'content', content);
     RealmObjectBase.set(this, 'state', state);
-    RealmObjectBase.set(this, 'user_id', userId);
-    RealmObjectBase.set(this, 'chat_id', chatId);
+    RealmObjectBase.set(this, 'userId', userId);
+    RealmObjectBase.set(this, 'chatId', chatId);
   }
 
   Message._();
@@ -47,15 +47,15 @@ class Message extends _Message with RealmEntity, RealmObjectBase, RealmObject {
 
   @override
   ObjectId get userId =>
-      RealmObjectBase.get<ObjectId>(this, 'user_id') as ObjectId;
+      RealmObjectBase.get<ObjectId>(this, 'userId') as ObjectId;
   @override
-  set userId(ObjectId value) => RealmObjectBase.set(this, 'user_id', value);
+  set userId(ObjectId value) => RealmObjectBase.set(this, 'userId', value);
 
   @override
   ObjectId get chatId =>
-      RealmObjectBase.get<ObjectId>(this, 'chat_id') as ObjectId;
+      RealmObjectBase.get<ObjectId>(this, 'chatId') as ObjectId;
   @override
-  set chatId(ObjectId value) => RealmObjectBase.set(this, 'chat_id', value);
+  set chatId(ObjectId value) => RealmObjectBase.set(this, 'chatId', value);
 
   @override
   Stream<RealmObjectChanges<Message>> get changes =>
@@ -74,8 +74,8 @@ class Message extends _Message with RealmEntity, RealmObjectBase, RealmObject {
       SchemaProperty('type', RealmPropertyType.int),
       SchemaProperty('content', RealmPropertyType.string),
       SchemaProperty('state', RealmPropertyType.int),
-      SchemaProperty('userId', RealmPropertyType.objectid, mapTo: 'user_id'),
-      SchemaProperty('chatId', RealmPropertyType.objectid, mapTo: 'chat_id'),
+      SchemaProperty('userId', RealmPropertyType.objectid),
+      SchemaProperty('chatId', RealmPropertyType.objectid),
     ]);
   }
 }

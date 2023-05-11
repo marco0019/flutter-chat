@@ -9,6 +9,7 @@ part of 'person.dart';
 class Person extends _Person with RealmEntity, RealmObjectBase, RealmObject {
   Person(
     ObjectId id,
+    String userId,
     String nickName,
     String firstName,
     String lastName,
@@ -16,18 +17,25 @@ class Person extends _Person with RealmEntity, RealmObjectBase, RealmObject {
     String password,
   ) {
     RealmObjectBase.set(this, '_id', id);
+    RealmObjectBase.set(this, 'userId', userId);
     RealmObjectBase.set(this, 'nickName', nickName);
     RealmObjectBase.set(this, 'firstName', firstName);
     RealmObjectBase.set(this, 'lastName', lastName);
     RealmObjectBase.set(this, 'email', email);
     RealmObjectBase.set(this, 'password', password);
   }
+
   Person._();
 
   @override
   ObjectId get id => RealmObjectBase.get<ObjectId>(this, '_id') as ObjectId;
   @override
   set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
+
+  @override
+  String get userId => RealmObjectBase.get<String>(this, 'userId') as String;
+  @override
+  set userId(String value) => RealmObjectBase.set(this, 'userId', value);
 
   @override
   String get nickName =>
@@ -72,6 +80,7 @@ class Person extends _Person with RealmEntity, RealmObjectBase, RealmObject {
     return const SchemaObject(ObjectType.realmObject, Person, 'Person', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
+      SchemaProperty('userId', RealmPropertyType.string),
       SchemaProperty('nickName', RealmPropertyType.string),
       SchemaProperty('firstName', RealmPropertyType.string),
       SchemaProperty('lastName', RealmPropertyType.string),

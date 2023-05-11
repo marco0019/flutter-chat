@@ -9,13 +9,13 @@ part of 'friends.dart';
 class Friends extends _Friends with RealmEntity, RealmObjectBase, RealmObject {
   Friends(
     ObjectId id,
-    ObjectId senderName,
-    ObjectId receivedName,
+    String senderName,
+    String receivedName,
     String state,
   ) {
     RealmObjectBase.set(this, '_id', id);
-    RealmObjectBase.set(this, 'sender_id', senderName);
-    RealmObjectBase.set(this, 'received_id', receivedName);
+    RealmObjectBase.set(this, 'senderName', senderName);
+    RealmObjectBase.set(this, 'receivedName', receivedName);
     RealmObjectBase.set(this, 'state', state);
   }
 
@@ -27,18 +27,18 @@ class Friends extends _Friends with RealmEntity, RealmObjectBase, RealmObject {
   set id(ObjectId value) => RealmObjectBase.set(this, '_id', value);
 
   @override
-  ObjectId get senderName =>
-      RealmObjectBase.get<ObjectId>(this, 'sender_id') as ObjectId;
+  String get senderName =>
+      RealmObjectBase.get<String>(this, 'senderName') as String;
   @override
-  set senderName(ObjectId value) =>
-      RealmObjectBase.set(this, 'sender_id', value);
+  set senderName(String value) =>
+      RealmObjectBase.set(this, 'senderName', value);
 
   @override
-  ObjectId get receivedName =>
-      RealmObjectBase.get<ObjectId>(this, 'received_id') as ObjectId;
+  String get receivedName =>
+      RealmObjectBase.get<String>(this, 'receivedName') as String;
   @override
-  set receivedName(ObjectId value) =>
-      RealmObjectBase.set(this, 'received_id', value);
+  set receivedName(String value) =>
+      RealmObjectBase.set(this, 'receivedName', value);
 
   @override
   String get state => RealmObjectBase.get<String>(this, 'state') as String;
@@ -59,10 +59,8 @@ class Friends extends _Friends with RealmEntity, RealmObjectBase, RealmObject {
     return const SchemaObject(ObjectType.realmObject, Friends, 'Friends', [
       SchemaProperty('id', RealmPropertyType.objectid,
           mapTo: '_id', primaryKey: true),
-      SchemaProperty('senderName', RealmPropertyType.objectid,
-          mapTo: 'sender_id'),
-      SchemaProperty('receivedName', RealmPropertyType.objectid,
-          mapTo: 'received_id'),
+      SchemaProperty('senderName', RealmPropertyType.string),
+      SchemaProperty('receivedName', RealmPropertyType.string),
       SchemaProperty('state', RealmPropertyType.string),
     ]);
   }

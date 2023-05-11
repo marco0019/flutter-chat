@@ -7,12 +7,9 @@ class _Friends {
   @MapTo('_id')
   late ObjectId id;
 
-  @MapTo('sender_id')
-  late ObjectId senderName;
+  late String senderName;
 
-  @MapTo('received_id')
-  late ObjectId receivedName;
+  late String receivedName;
 
-  @MapTo('state')
   late String state;
 }
