@@ -76,7 +76,7 @@ class _ChatCard extends State<ChatCard> {
                       ),
                     ),
                     const SizedBox(height: 8.0),
-                    const Icon(FontAwesomeIcons.volumeOff, color: Colors.grey)
+                    const Icon(FontAwesomeIcons.volumeXmark, color: Colors.grey)
                   ],
                 ),
               ],

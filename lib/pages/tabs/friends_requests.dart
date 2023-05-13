@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import 'package:test_chat/components/widgets.dart';
 import 'package:test_chat/models/friend_request/friends.dart';
+import 'package:test_chat/providers/friend_services.dart';
 
-class FriendList extends StatelessWidget {
-  FriendList({super.key});
+class FriendList extends StatefulWidget {
+  const FriendList({super.key});
+  @override
+  createState() => _FriendList();
+}
+
+class _FriendList extends State<FriendList> {
   final TextEditingController _friendController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    //final friends = Provider.of<FriendServices?>(context, listen: false);
+    //final friends = Provider.of<FriendServices>(context, listen: false);
     return ListView(
       children: [
         Row(

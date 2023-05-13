@@ -5,14 +5,23 @@ import 'package:test_chat/components/app_bar/change_theme.dart';
 import 'package:test_chat/components/app_bar/logout.dart';
 import 'package:test_chat/components/dropdown.dart';
 import 'package:test_chat/providers/app_services.dart';
+import 'package:test_chat/providers/person_services.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
+  const Settings({super.key});
+  @override
+  createState() => _Settings();
+}
+
+class _Settings extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     final appServices = Provider.of<AppServices>(context, listen: false);
-    //final currentPerson = context.watch<PersonHandler>().currentPerson;
+    final currentPerson = context.watch<PersonServices>();
     return ListView(
       children: [
+        Text(currentPerson.currentPerson.nickName),
+        Text(currentPerson.currentPerson.id.toString()),
         rowItem(FontAwesomeIcons.a, 'Change theme', const ChangeTheme()),
         rowItem(
             FontAwesomeIcons.a,
@@ -38,10 +47,8 @@ class Settings extends StatelessWidget {
               ],
             )),
         rowItem(FontAwesomeIcons.user, 'Log out', logout(context, appServices)),
-        rowItem(
-            FontAwesomeIcons.iceCream,
-            appServices.handlePerson.currentPerson.email,
-            Text(appServices.handlePerson.currentPerson.password))
+        rowItem(FontAwesomeIcons.iceCream, currentPerson.currentPerson.email,
+            Text(currentPerson.currentPerson.password))
       ],
     );
   }

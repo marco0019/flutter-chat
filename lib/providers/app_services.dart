@@ -4,19 +4,11 @@ import 'package:realm/realm.dart';
 import 'package:test_chat/providers/person_services.dart';
 
 class AppServices with ChangeNotifier {
-  String id;
-  Uri baseUrl;
   App app;
   User? currentUser;
   late PersonServices handlePerson;
   GetStorage box = GetStorage();
-  AppServices(this.id, this.baseUrl)
-      : app = App(AppConfiguration(id, baseUrl: baseUrl)) {
-    handlePerson = PersonServices(app);
-    if (app.currentUser != null && handlePerson.currentPerson.userId.isEmpty) {
-      handlePerson.initializePerson();
-    }
-  }
+  AppServices(this.app);
 
   void registerLocal({required email, required password}) {
     box.write('username', email);

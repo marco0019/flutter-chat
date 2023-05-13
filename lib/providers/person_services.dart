@@ -16,6 +16,9 @@ class PersonServices with ChangeNotifier {
     } on RealmException catch (err) {
       isOnline = false;
     }
+    if (app.currentUser != null && currentPerson.userId.isEmpty) {
+      initializePerson();
+    }
   }
 
   void init() async {

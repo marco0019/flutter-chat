@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:realm/realm.dart';
 import 'package:test_chat/providers/friend_services.dart';
+import 'package:test_chat/providers/person_services.dart';
 import 'package:test_chat/providers/realm_services.dart';
 import 'package:test_chat/providers/theme.dart';
 import 'package:test_chat/utils/constants.dart';
 import 'providers/app_services.dart';
 
 void main() {
+  final App app =
+      App(AppConfiguration(CONSTANTS.ID_APP, baseUrl: CONSTANTS.BASE_URL));
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<AppServices>(
-        create: (_) => AppServices(CONSTANTS.ID_APP, CONSTANTS.BASE_URL),
+        create: (_) => AppServices(app),
       ),
       ChangeNotifierProxyProvider<AppServices, RealmServices?>(
         create: (context) => null,
@@ -24,10 +28,10 @@ void main() {
       ChangeNotifierProvider<ThemeModel>(
         create: (_) => ThemeModel(),
       ),
+      ChangeNotifierProvider<PersonServices>(
+          create: (_) => PersonServices(app)),
       ChangeNotifierProvider<FriendServices>(
-        create: (_) {
-          return FriendServices(Provider.of<AppServices>(_, listen: false).app);
-        },
+        create: (_) => FriendServices(app),
       ),
     ],
     child: const Main(),
