@@ -16,14 +16,10 @@ class AppServices with ChangeNotifier {
       : app = App(AppConfiguration(id, baseUrl: baseUrl)) {
     handlePerson = PersonHandler(app);
     //handleFriend = FriendHandler(app);
-    try {
-      if (app.currentUser != null &&
-          handlePerson.currentPerson.userId.isEmpty) {
-        handlePerson.initializePerson();
-      }
-    } on RealmException catch (err) {
-      print(err.message);
+    if (app.currentUser != null && handlePerson.currentPerson.userId.isEmpty) {
+      handlePerson.initializePerson();
     }
+    //handleFriend = FriendHandler(app);
   }
 
   void registerLocal({required email, required password}) {

@@ -34,14 +34,13 @@ class _ChatCard extends State<ChatCard> {
             padding: const EdgeInsets.all(15),
             child: Row(
               children: [
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: CircleAvatar(
-                      child: Text(
-                        widget.chatName.trim()[0].toUpperCase(),
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                    )),
+                CircleAvatar(
+                  radius: 25,
+                  child: Text(
+                    widget.chatName.trim()[0].toUpperCase(),
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                ),
                 const SizedBox(width: 16.0),
                 Expanded(
                   child: Column(
@@ -66,12 +65,19 @@ class _ChatCard extends State<ChatCard> {
                     ],
                   ),
                 ),
-                Text(
-                  DateFormat('HH:mm').format(widget.lastDate),
-                  style: const TextStyle(
-                    fontSize: 14.0,
-                    color: Colors.grey,
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      DateFormat('HH:mm').format(widget.lastDate),
+                      style: const TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const SizedBox(height: 8.0),
+                    const Icon(FontAwesomeIcons.volumeOff, color: Colors.grey)
+                  ],
                 ),
               ],
             )),

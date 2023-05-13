@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:test_chat/components/chats/chat_item.dart';
-import 'package:test_chat/realm/services/app_services.dart';
 
 class Chats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appServices = Provider.of<AppServices>(context);
+    //final appServices = context.watch<AppServices>();
+
     return ListView(children: [
       ChatCard(
           chatName: 'Global',
@@ -16,7 +15,7 @@ class Chats extends StatelessWidget {
           isMyMessage: true,
           stateOfMessage: 1),
       ChatCard(
-          chatName: appServices.box.read('password') ?? 'null',
+          chatName: 'prova',
           lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
           lastDate: DateTime.now(),
           typeOfMessage: 'text',
