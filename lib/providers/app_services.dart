@@ -32,7 +32,7 @@ class AppServices with ChangeNotifier {
     return loggedInUser;
   }
 
-  Future<User> registerUserEmailPassword(
+  Future<User> registerUserEmailPassword(PersonServices user,
       {required String nickName,
       required String firstName,
       required String lastName,
@@ -43,7 +43,8 @@ class AppServices with ChangeNotifier {
     User loggedInUser =
         await app.logIn(Credentials.emailPassword(email, password));
     currentUser = loggedInUser;
-    handlePerson.register(
+    user.initServices();
+    user.register(
         currentId: currentUser!.id,
         nickName: nickName,
         firstName: firstName,

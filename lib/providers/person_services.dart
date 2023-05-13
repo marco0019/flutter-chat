@@ -10,6 +10,11 @@ class PersonServices with ChangeNotifier {
   bool isOnline = true;
   Person currentPerson = Person(ObjectId(), '', '', '', '', '', '');
   PersonServices(this.app) {
+    if (app.currentUser != null) {
+      initServices();
+    }
+  }
+  void initServices() {
     try {
       init();
       initBox();

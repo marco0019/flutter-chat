@@ -5,6 +5,7 @@ import 'package:realm/realm.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/components/widgets.dart';
 import 'package:test_chat/providers/app_services.dart';
+import 'package:test_chat/providers/person_services.dart';
 import 'package:test_chat/providers/realm_services.dart';
 import 'package:test_chat/utils/colors.dart';
 
@@ -44,9 +45,9 @@ class _Login extends State<Login> {
     super.dispose();
   }
 
-  Future<void> signINorUP() async {
-    final appServices = Provider.of<AppServices>(context, listen: false);
-    final db = Provider.of<RealmServices>(context, listen: false);
+  Future<void> signINorUP(
+      {required AppServices appServices,
+      required PersonServices currentPerson}) async {
     clearError();
     try {
       if (isLogin) {
@@ -55,7 +56,7 @@ class _Login extends State<Login> {
         //db.register(_nickName.text, _firstName.text, _lastName.text,
         //    _email.text, _password.text);
 
-        await appServices.registerUserEmailPassword(
+        await appServices.registerUserEmailPassword(currentPerson,
             nickName: _nickName.text,
             firstName: _firstName.text,
             lastName: _lastName.text,
@@ -81,6 +82,8 @@ class _Login extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    final appServices = Provider.of<AppServices>(context, listen: false);
+    final currentPerson = Provider.of<PersonServices>(context, listen: false);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(25),
@@ -128,7 +131,9 @@ class _Login extends State<Login> {
                 const Text('box.read() ?? '),
                 ElevatedButton(
                     child: Text(isLogin ? "Log in" : "Sign up"),
-                    onPressed: () => signINorUP()),
+                    onPressed: () => signINorUP(
+                        appServices: appServices,
+                        currentPerson: currentPerson)),
                 TextButton(
                     onPressed: () => setState(() => isLogin = !isLogin),
                     child: Text(
