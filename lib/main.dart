@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:test_chat/realm/models/friend_request/friend_handler.dart';
-import 'package:test_chat/realm/services/realm_services.dart';
+import 'package:test_chat/providers/friend_services.dart';
+import 'package:test_chat/providers/realm_services.dart';
+import 'package:test_chat/providers/theme.dart';
 import 'package:test_chat/utils/constants.dart';
-import 'package:test_chat/utils/routes.dart';
-import 'package:test_chat/utils/theme.dart';
-import 'realm/services/app_services.dart';
+import 'providers/app_services.dart';
 
 void main() {
   runApp(MultiProvider(
@@ -14,7 +13,6 @@ void main() {
         create: (_) => AppServices(CONSTANTS.ID_APP, CONSTANTS.BASE_URL),
       ),
       ChangeNotifierProxyProvider<AppServices, RealmServices?>(
-        // RealmServices can only be initialized only if the user is logged in.
         create: (context) => null,
         update: (BuildContext context, AppServices appServices,
             RealmServices? realmServices) {
@@ -26,10 +24,9 @@ void main() {
       ChangeNotifierProvider<ThemeModel>(
         create: (_) => ThemeModel(),
       ),
-      ChangeNotifierProvider<FriendHandler>(
+      ChangeNotifierProvider<FriendServices>(
         create: (_) {
-          final appServices = _.watch<AppServices>();
-          return FriendHandler(appServices.app);
+          return FriendServices(Provider.of<AppServices>(_, listen: false).app);
         },
       ),
     ],
@@ -58,7 +55,7 @@ class Main extends StatelessWidget {
                   null
               ? '/login'
               : '/',
-          routes: routes(),
+          routes: CONSTANTS.ROUTES,
         ),
         onWillPop: () async => false);
   }

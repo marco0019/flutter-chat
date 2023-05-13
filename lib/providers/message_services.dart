@@ -1,5 +1,5 @@
 import 'package:realm/realm.dart';
-import 'package:test_chat/realm/models/message/message.dart';
+import 'package:test_chat/models/message/message.dart';
 
 class MessageHandler {
   late Realm realm;

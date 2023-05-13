@@ -1,11 +1,11 @@
 import 'package:flutter/widgets.dart';
 import 'package:realm/realm.dart';
-import 'package:test_chat/realm/models/chat/chat.dart';
+import 'package:test_chat/models/chat/chat.dart';
 
-class ChatHandler with ChangeNotifier {
+class ChatServices with ChangeNotifier {
   late Realm realm;
   App app;
-  ChatHandler(this.app) {
+  ChatServices(this.app) {
     init();
   }
   @override

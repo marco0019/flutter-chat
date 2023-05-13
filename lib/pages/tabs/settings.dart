@@ -4,9 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:test_chat/components/app_bar/change_theme.dart';
 import 'package:test_chat/components/app_bar/logout.dart';
 import 'package:test_chat/components/dropdown.dart';
-import 'package:test_chat/realm/models/person/person_handler.dart';
-import 'package:test_chat/realm/services/app_services.dart';
-import 'package:test_chat/realm/services/realm_services.dart';
+import 'package:test_chat/providers/app_services.dart';
 
 class Settings extends StatelessWidget {
   @override

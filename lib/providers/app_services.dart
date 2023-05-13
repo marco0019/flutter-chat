@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
-import 'package:test_chat/realm/models/friend_request/friend_handler.dart';
-import 'package:test_chat/realm/models/person/person_handler.dart';
+import 'package:test_chat/providers/person_services.dart';
 
 class AppServices with ChangeNotifier {
   String id;
   Uri baseUrl;
   App app;
   User? currentUser;
-  late PersonHandler handlePerson;
-  late FriendHandler handleFriend;
+  late PersonServices handlePerson;
   GetStorage box = GetStorage();
   AppServices(this.id, this.baseUrl)
       : app = App(AppConfiguration(id, baseUrl: baseUrl)) {
-    handlePerson = PersonHandler(app);
-    //handleFriend = FriendHandler(app);
+    handlePerson = PersonServices(app);
     if (app.currentUser != null && handlePerson.currentPerson.userId.isEmpty) {
       handlePerson.initializePerson();
     }
-    //handleFriend = FriendHandler(app);
   }
 
   void registerLocal({required email, required password}) {

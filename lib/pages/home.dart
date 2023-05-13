@@ -6,9 +6,10 @@ import 'package:test_chat/components/app_bar/logout.dart';
 import 'package:test_chat/pages/tabs/chats.dart';
 import 'package:test_chat/pages/tabs/friends_requests.dart';
 import 'package:test_chat/pages/tabs/settings.dart';
-import 'package:test_chat/realm/services/app_services.dart';
+import 'package:test_chat/providers/app_services.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
   @override
   _Home createState() => _Home();
 }

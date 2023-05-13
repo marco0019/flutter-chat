@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:realm/realm.dart';
-import 'package:test_chat/realm/models/friend_request/friends.dart';
+import 'package:test_chat/models/friend_request/friends.dart';
 
-class FriendHandler with ChangeNotifier {
+class FriendServices with ChangeNotifier {
   final List<Friends> friends = [];
   late Realm realm;
   App app;
-  FriendHandler(this.app) {
+  FriendServices(this.app) {
     init();
   }
   void init() async {

@@ -1,15 +1,15 @@
 import 'package:flutter/widgets.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
-import 'package:test_chat/realm/models/person/person.dart';
+import 'package:test_chat/models/person/person.dart';
 
-class PersonHandler with ChangeNotifier {
+class PersonServices with ChangeNotifier {
   late Realm realm;
   late GetStorage box;
   App app;
   bool isOnline = true;
   Person currentPerson = Person(ObjectId(), '', '', '', '', '', '');
-  PersonHandler(this.app) {
+  PersonServices(this.app) {
     try {
       init();
       initBox();

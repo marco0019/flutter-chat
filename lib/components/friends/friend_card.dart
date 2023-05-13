@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/components/popup.dart';
 import 'package:test_chat/components/widgets.dart';
-import 'package:test_chat/realm/services/app_services.dart';
+import 'package:test_chat/providers/app_services.dart';
 
 class FriendRequests extends StatefulWidget {
   final List<Widget> cards;

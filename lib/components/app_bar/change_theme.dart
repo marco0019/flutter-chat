@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:test_chat/utils/theme.dart';
+import 'package:test_chat/providers/theme.dart';
 
 class ChangeTheme extends StatefulWidget {
   const ChangeTheme({super.key});
