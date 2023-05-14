@@ -22,10 +22,9 @@ class PersonServices with ChangeNotifier {
       isOnline = false;
     }
     if (app.currentUser != null && currentPerson.userId == 'pr') {
-      initializePersonDB();
-      print(currentPerson);
+      initializePersonLocal();
       if (!currentPerson.isValid) {
-        initializePersonLocal();
+        initializePersonDB();
       }
     }
   }
@@ -87,7 +86,7 @@ class PersonServices with ChangeNotifier {
 
   void initializePersonLocal() {
     currentPerson = Person(
-        box.read('id'),
+        ObjectId(),
         box.read('currentId'),
         box.read('nickName'),
         box.read('firstName'),

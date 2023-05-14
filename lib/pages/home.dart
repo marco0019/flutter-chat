@@ -25,14 +25,11 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final appServices = Provider.of<AppServices>(context, listen: false);
-    final currentPerson = context.watch<PersonServices>();
     final friendServices = context.watch<FriendServices>();
     final List<Widget> pages = [
       Chats(),
-      FriendList(
-        friendServices: friendServices,
-      ),
-      const Settings()
+      FriendList(friendServices: friendServices),
+      Settings(appServices: appServices)
     ];
     return DefaultTabController(
         length: pages.length,

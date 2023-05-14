@@ -8,7 +8,8 @@ import 'package:test_chat/providers/app_services.dart';
 import 'package:test_chat/providers/person_services.dart';
 
 class Settings extends StatefulWidget {
-  const Settings({super.key});
+  AppServices appServices;
+  Settings({super.key, required this.appServices});
   @override
   createState() => _Settings();
 }
@@ -16,8 +17,7 @@ class Settings extends StatefulWidget {
 class _Settings extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    final appServices = Provider.of<AppServices>(context, listen: false);
-    final currentPerson = context.read<PersonServices>().currentPerson;
+    final currentPerson = context.watch<PersonServices>().currentPerson;
     return ListView(
       children: [
         Text(currentPerson.isValid ? currentPerson.email : 'not valid'),
@@ -45,7 +45,7 @@ class _Settings extends State<Settings> {
                     child: const Text('prova'))
               ],
             )),
-        rowItem(FontAwesomeIcons.user, 'Log out', logout(context, appServices)),
+        rowItem(FontAwesomeIcons.user, 'Log out', logout(context, widget.appServices)),
         rowItem(
             FontAwesomeIcons.iceCream,
             currentPerson.isValid ? currentPerson.email : 'not valid',

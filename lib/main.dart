@@ -40,7 +40,7 @@ class Main extends StatelessWidget {
           theme: ThemeData.light(
               useMaterial3:
                   true).copyWith(
-              colorScheme: const ColorScheme.light(primary: Colors.green))
+              colorScheme: const ColorScheme.light(primary: Colors.indigo))
           ,
           darkTheme: ThemeData.dark(useMaterial3: true),
           initialRoute: Provider.of<AppServices>(context, listen: false)

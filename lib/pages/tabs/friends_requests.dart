@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:realm/realm.dart';
+import 'package:test_chat/components/friends/friend_item.dart';
 import 'package:test_chat/components/widgets.dart';
-import 'package:test_chat/models/friend_request/friends.dart';
 import 'package:test_chat/providers/friend_services.dart';
 import 'package:test_chat/providers/person_services.dart';
 
@@ -46,9 +45,9 @@ class _FriendList extends State<FriendList> {
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.friendServices.friends
-                      .map((friend) => Text(
-                            '- ${friend.senderName}',
-                            style: const TextStyle(fontSize: 16),
+                      .map((friend) => FriendItem(
+                            friendName: friend.receivedName,
+                            onDelete: () => print('prova'),
                           ))
                       .toList(),
                 ),

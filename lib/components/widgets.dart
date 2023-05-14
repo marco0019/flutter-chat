@@ -55,7 +55,10 @@ Widget templateButton(BuildContext context,
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 10),
     child: ElevatedButton(
-      style: ButtonStyle(backgroundColor: MaterialStateProperty.all(color)),
+      style: ButtonStyle(
+          textStyle:
+              const MaterialStatePropertyAll(TextStyle(color: Colors.white38)),
+          backgroundColor: MaterialStateProperty.all(color)),
       onPressed: onPressed,
       child: Text(text),
     ),

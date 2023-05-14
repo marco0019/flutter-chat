@@ -4,24 +4,13 @@ import 'package:test_chat/components/widgets.dart';
 
 class FriendItem extends StatefulWidget {
   final String friendName;
-  FriendItem({super.key, required this.friendName});
+  final Function onDelete;
+  FriendItem({super.key, required this.friendName, required this.onDelete});
   @override
   _FriendItem createState() => _FriendItem();
 }
 
 class _FriendItem extends State<FriendItem> {
-  void removeWidget() {
-    BuildContext context = this.context;
-    context.findRenderObject()?.dispose();
-    context.visitChildElements((element) {
-      element.visitChildElements((child) {
-        child.visitChildren((widget) {
-          widget.findRenderObject()?.dispose();
-        });
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) => InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(15)),
@@ -30,12 +19,10 @@ class _FriendItem extends State<FriendItem> {
           padding: const EdgeInsets.all(10),
           child: Row(
             children: [
-              Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: CircleAvatar(
-                    child: Text(widget.friendName.trim()[0].toUpperCase(),
-                        style: const TextStyle(fontSize: 20)),
-                  )),
+              CircleAvatar(
+                child: Text(widget.friendName.trim()[0].toUpperCase(),
+                    style: const TextStyle(fontSize: 20)),
+              ),
               const SizedBox(width: 16.0),
               Expanded(
                 child: Column(
@@ -68,7 +55,7 @@ class _FriendItem extends State<FriendItem> {
                                 child: const Text('cancel')),
                             ElevatedButton(
                                 onPressed: () {
-                                  removeWidget();
+                                  widget.onDelete();
                                   Navigator.of(context).pop();
                                 },
                                 child: const Text('Remove'))
