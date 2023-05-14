@@ -19,6 +19,9 @@ class FriendServices with ChangeNotifier {
     });
     await realm.subscriptions.waitForSynchronization();
   }
+  void initDB(){
+
+  }
 
   void sendRequest(
       {required String currentName, required String friendName}) {

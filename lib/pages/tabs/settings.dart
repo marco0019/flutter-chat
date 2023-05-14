@@ -17,11 +17,10 @@ class _Settings extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     final appServices = Provider.of<AppServices>(context, listen: false);
-    final currentPerson = context.watch<PersonServices>();
+    final currentPerson = context.read<PersonServices>().currentPerson;
     return ListView(
       children: [
-        Text(currentPerson.currentPerson.nickName),
-        Text(currentPerson.currentPerson.id.toString()),
+        Text(currentPerson.isValid ? currentPerson.email : 'not valid'),
         rowItem(FontAwesomeIcons.a, 'Change theme', const ChangeTheme()),
         rowItem(
             FontAwesomeIcons.a,
@@ -47,8 +46,13 @@ class _Settings extends State<Settings> {
               ],
             )),
         rowItem(FontAwesomeIcons.user, 'Log out', logout(context, appServices)),
-        rowItem(FontAwesomeIcons.iceCream, currentPerson.currentPerson.email,
-            Text(currentPerson.currentPerson.password))
+        rowItem(
+            FontAwesomeIcons.iceCream,
+            currentPerson.isValid ? currentPerson.email : 'not valid',
+            Text(currentPerson.isValid ? currentPerson.password : 'not valid')),
+        Column(
+          children: [Text('prova')],
+        )
       ],
     );
   }

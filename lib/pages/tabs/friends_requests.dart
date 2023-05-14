@@ -4,9 +4,11 @@ import 'package:realm/realm.dart';
 import 'package:test_chat/components/widgets.dart';
 import 'package:test_chat/models/friend_request/friends.dart';
 import 'package:test_chat/providers/friend_services.dart';
+import 'package:test_chat/providers/person_services.dart';
 
 class FriendList extends StatefulWidget {
-  const FriendList({super.key});
+  FriendServices friendServices;
+  FriendList({super.key, required this.friendServices});
   @override
   createState() => _FriendList();
 }
@@ -15,7 +17,7 @@ class _FriendList extends State<FriendList> {
   final TextEditingController _friendController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    //final friends = Provider.of<FriendServices>(context, listen: false);
+    final currentPerson = context.watch<PersonServices>().currentPerson;
     return ListView(
       children: [
         Row(
@@ -27,7 +29,9 @@ class _FriendList extends State<FriendList> {
               ),
             ),
             IconButton(
-              onPressed: () => print('manda richiesta'),
+              onPressed: () => widget.friendServices.sendRequest(
+                  currentName: currentPerson.nickName,
+                  friendName: _friendController.text),
               icon: const Icon(Icons.send),
               padding: const EdgeInsets.all(0),
             ),
@@ -37,11 +41,11 @@ class _FriendList extends State<FriendList> {
         ListTile(
           title: const Text('Friends'),
           isThreeLine: true,
-          subtitle: [Friends(ObjectId(), 'prova', 'prova1', 'waiting')].isEmpty
+          subtitle: widget.friendServices.friends.isEmpty
               ? const Text('You have no friends yet.')
               : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [Friends(ObjectId(), 'prova', 'prova1', 'waiting')]
+                  children: widget.friendServices.friends
                       .map((friend) => Text(
                             '- ${friend.senderName}',
                             style: const TextStyle(fontSize: 16),

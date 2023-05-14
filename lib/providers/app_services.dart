@@ -45,7 +45,7 @@ class AppServices with ChangeNotifier {
     currentUser = loggedInUser;
     user.initServices();
     user.register(
-        currentId: currentUser!.id,
+        currentId: app.currentUser!.id,
         nickName: nickName,
         firstName: firstName,
         lastName: lastName,

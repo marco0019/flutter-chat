@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:realm/realm.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/components/widgets.dart';
 import 'package:test_chat/providers/app_services.dart';
 import 'package:test_chat/providers/person_services.dart';
-import 'package:test_chat/providers/realm_services.dart';
 import 'package:test_chat/utils/colors.dart';
 
 class Login extends StatefulWidget {
@@ -62,9 +59,6 @@ class _Login extends State<Login> {
             lastName: _lastName.text,
             email: _email.text,
             password: _password.text);
-      }
-      if (rememberMe) {
-        appServices.registerLocal(email: _email.text, password: _password.text);
       }
       Navigator.pushNamed(context, '/');
     } on AppException catch (err) {

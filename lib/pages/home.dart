@@ -7,6 +7,7 @@ import 'package:test_chat/pages/tabs/chats.dart';
 import 'package:test_chat/pages/tabs/friends_requests.dart';
 import 'package:test_chat/pages/tabs/settings.dart';
 import 'package:test_chat/providers/app_services.dart';
+import 'package:test_chat/providers/friend_services.dart';
 import 'package:test_chat/providers/person_services.dart';
 
 class Home extends StatefulWidget {
@@ -25,8 +26,14 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     final appServices = Provider.of<AppServices>(context, listen: false);
     final currentPerson = context.watch<PersonServices>();
-
-    final List<Widget> pages = [Chats(), const FriendList(), const Settings()];
+    final friendServices = context.watch<FriendServices>();
+    final List<Widget> pages = [
+      Chats(),
+      FriendList(
+        friendServices: friendServices,
+      ),
+      const Settings()
+    ];
     return DefaultTabController(
         length: pages.length,
         child: Scaffold(

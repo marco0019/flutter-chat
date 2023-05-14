@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:realm/realm.dart';
 import 'package:test_chat/providers/friend_services.dart';
 import 'package:test_chat/providers/person_services.dart';
-import 'package:test_chat/providers/realm_services.dart';
 import 'package:test_chat/providers/theme.dart';
 import 'package:test_chat/utils/constants.dart';
 import 'providers/app_services.dart';
@@ -15,15 +14,6 @@ void main() {
     providers: [
       ChangeNotifierProvider<AppServices>(
         create: (_) => AppServices(app),
-      ),
-      ChangeNotifierProxyProvider<AppServices, RealmServices?>(
-        create: (context) => null,
-        update: (BuildContext context, AppServices appServices,
-            RealmServices? realmServices) {
-          return appServices.app.currentUser != null
-              ? RealmServices(appServices.app)
-              : null;
-        },
       ),
       ChangeNotifierProvider<ThemeModel>(
         create: (_) => ThemeModel(),
@@ -49,8 +39,8 @@ class Main extends StatelessWidget {
           themeMode: theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
           theme: ThemeData.light(
               useMaterial3:
-                  true) /*.copyWith(
-              colorScheme: const ColorScheme.light(primary: Colors.orange))*/
+                  true).copyWith(
+              colorScheme: const ColorScheme.light(primary: Colors.green))
           ,
           darkTheme: ThemeData.dark(useMaterial3: true),
           initialRoute: Provider.of<AppServices>(context, listen: false)
