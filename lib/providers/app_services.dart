@@ -6,23 +6,9 @@ import 'package:test_chat/providers/person_services.dart';
 class AppServices with ChangeNotifier {
   App app;
   User? currentUser;
-  late PersonServices handlePerson;
-  GetStorage box = GetStorage();
   AppServices(this.app);
 
-  void registerLocal({required email, required password}) {
-    box.write('username', email);
-    box.write('password', password);
-    //notifyListeners();
-  }
-
   void initStorage() async => GetStorage.init();
-
-  List<String> credentials() {
-    final email = box.read('username');
-    final password = box.read('password');
-    return [email, password];
-  }
 
   Future<User> logInUserEmailPassword(String email, String password) async {
     User loggedInUser =
@@ -43,7 +29,7 @@ class AppServices with ChangeNotifier {
     User loggedInUser =
         await app.logIn(Credentials.emailPassword(email, password));
     currentUser = loggedInUser;
-    user.initServices();
+    user.initServices(initUser: false);
     user.register(
         currentId: app.currentUser!.id,
         nickName: nickName,
@@ -60,3 +46,4 @@ class AppServices with ChangeNotifier {
     currentUser = null;
   }
 }
+//https://console.firebase.google.com/u/0/project/chat-room-1441f/database/chat-room-1441f-default-rtdb/data/~2F

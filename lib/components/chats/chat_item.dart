@@ -28,60 +28,60 @@ class _ChatCard extends State<ChatCard> {
   double _left = 0;
   @override
   Widget build(BuildContext context) => InkWell(
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        onTap: () {},
-        child: Container(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 25,
-                  child: Text(
-                    widget.chatName.trim()[0].toUpperCase(),
-                    style: const TextStyle(fontSize: 20),
-                  ),
-                ),
-                const SizedBox(width: 16.0),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.chatName,
-                        style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8.0),
-                      Text(
-                        widget.lastMessage,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        style: const TextStyle(
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      DateFormat('HH:mm').format(widget.lastDate),
-                      style: const TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.grey,
-                      ),
+    borderRadius: const BorderRadius.all(Radius.circular(20)),
+    onTap: () {},
+    child: Container(
+        padding: const EdgeInsets.all(15),
+        child: Row(
+          children: [
+            CircleAvatar(
+              radius: 25,
+              child: Text(
+                widget.chatName.trim()[0].toUpperCase(),
+                style: const TextStyle(fontSize: 20),
+              ),
+            ),
+            const SizedBox(width: 16.0),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.chatName,
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(height: 8.0),
-                    const Icon(FontAwesomeIcons.volumeXmark, color: Colors.grey)
-                  ],
+                  ),
+                  const SizedBox(height: 8.0),
+                  Text(
+                    widget.lastMessage,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: const TextStyle(
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  DateFormat('HH:mm').format(widget.lastDate),
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                    color: Colors.grey,
+                  ),
                 ),
+                const SizedBox(height: 8.0),
+                const Icon(FontAwesomeIcons.volumeXmark, color: Colors.grey)
               ],
-            )),
-      );
+            ),
+          ],
+        )),
+  );
 }
 
 IconData stateMessage({required isMy, required state}) {
@@ -95,3 +95,8 @@ IconData stateMessage({required isMy, required state}) {
     return FontAwesomeIcons.circleNodes;
   }
 }
+
+
+/*
+
+* */

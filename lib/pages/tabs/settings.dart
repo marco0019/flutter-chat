@@ -17,10 +17,10 @@ class Settings extends StatefulWidget {
 class _Settings extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    final currentPerson = context.watch<PersonServices>().currentPerson;
+    final user = Provider.of<PersonServices>(context);
     return ListView(
       children: [
-        Text(currentPerson.isValid ? currentPerson.email : 'not valid'),
+        Text(user.currentPerson.isValid ? user.currentPerson.email : 'not valid'),
         rowItem(FontAwesomeIcons.a, 'Change theme', const ChangeTheme()),
         rowItem(
             FontAwesomeIcons.a,
@@ -48,11 +48,8 @@ class _Settings extends State<Settings> {
         rowItem(FontAwesomeIcons.user, 'Log out', logout(context, widget.appServices)),
         rowItem(
             FontAwesomeIcons.iceCream,
-            currentPerson.isValid ? currentPerson.email : 'not valid',
-            Text(currentPerson.isValid ? currentPerson.password : 'not valid')),
-        Column(
-          children: [Text('prova')],
-        )
+            user.currentPerson.isValid ? user.currentPerson.email : 'not valid',
+            Text(user.currentPerson.isValid ? user.currentPerson.password : 'not valid')),
       ],
     );
   }

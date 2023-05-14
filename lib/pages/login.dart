@@ -50,9 +50,6 @@ class _Login extends State<Login> {
       if (isLogin) {
         await appServices.logInUserEmailPassword(_email.text, _password.text);
       } else {
-        //db.register(_nickName.text, _firstName.text, _lastName.text,
-        //    _email.text, _password.text);
-
         await appServices.registerUserEmailPassword(currentPerson,
             nickName: _nickName.text,
             firstName: _firstName.text,
@@ -76,8 +73,8 @@ class _Login extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    final appServices = Provider.of<AppServices>(context, listen: false);
-    final currentPerson = Provider.of<PersonServices>(context, listen: false);
+    final appServices = context.watch<AppServices>();
+    final currentPerson = context.watch<PersonServices>();
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(25),

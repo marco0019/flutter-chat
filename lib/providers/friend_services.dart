@@ -7,7 +7,9 @@ class FriendServices with ChangeNotifier {
   late Realm realm;
   App app;
   FriendServices(this.app) {
-    init();
+    if(app.currentUser != null) {
+      init();
+    }
   }
   void init() async {
     realm =
@@ -18,9 +20,6 @@ class FriendServices with ChangeNotifier {
           name: 'getAllItemsSubscription');
     });
     await realm.subscriptions.waitForSynchronization();
-  }
-  void initDB(){
-
   }
 
   void sendRequest(

@@ -24,10 +24,10 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final appServices = Provider.of<AppServices>(context, listen: false);
+    final appServices = context.watch<AppServices>();
     final friendServices = context.watch<FriendServices>();
     final List<Widget> pages = [
-      Chats(),
+      Chats(appServices: appServices),
       FriendList(friendServices: friendServices),
       Settings(appServices: appServices)
     ];
@@ -39,28 +39,28 @@ class _Home extends State<Home> {
                 leading: const ChangeTheme(),
                 title: const Text('Chats'),
                 actions: [logout(context, appServices)],
-                bottom: TabBar(
-                  physics: const BouncingScrollPhysics(
+                bottom: const TabBar(
+                  physics: BouncingScrollPhysics(
                       decelerationRate: ScrollDecelerationRate.fast),
                   splashBorderRadius:
-                      const BorderRadius.all(Radius.elliptical(0, 50)),
+                      BorderRadius.all(Radius.elliptical(0, 50)),
                   tabs: [
                     Tab(
-                      child: Row(children: const [
+                      child: Row(children: [
                         Text('Chats'),
                         SizedBox(width: 15),
                         Icon(FontAwesomeIcons.house, size: 15)
                       ]),
                     ),
                     Tab(
-                      child: Row(children: const [
+                      child: Row(children: [
                         Text('Friends'),
                         SizedBox(width: 15),
                         Icon(FontAwesomeIcons.userGroup, size: 15)
                       ]),
                     ),
                     Tab(
-                      child: Row(children: const [
+                      child: Row(children: [
                         Text('Settings'),
                         SizedBox(width: 15),
                         Icon(FontAwesomeIcons.gear, size: 15)
