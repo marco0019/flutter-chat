@@ -14,19 +14,30 @@ class PersonServices with ChangeNotifier {
   bool isOnline = true;
   Person currentPerson = Person(ObjectId(), 'pr', 'am', 'tl', 'hg', 'fq', 'ap');
   PersonServices(this.app) {
+    initAssets();
     if (app.currentUser != null) {
-      initUser();
       initServices();
     }
   }
-  Future<void> initUser()async {
+
+  /// Inizializza l'utente attraverso il file `assets/users.json`
+  Future<void> initAssets() async {
     final file = await rootBundle.loadString(CONSTANTS.USER_FILE_PATH);
     userData = await json.decode(file);
+    userData['id'] = 0;
   }
+
   /// Titolo del mio metodo quanto vado ad ispezionare
-  /// Descrizione
-  Future<void> modifyJsonFile({required String id, required String userId, required String nickName, required String firstName, required String lastName, required String email, required String password}) async {
+  Future<void> modifyJsonFile(
+      {required String id,
+      required String userId,
+      required String nickName,
+      required String firstName,
+      required String lastName,
+      required String email,
+      required String password}) async {
     final file = File(CONSTANTS.USER_FILE_PATH);
+
     userData["id"] = id;
     userData["userId"] = userId;
     userData["nickName"] = nickName;
@@ -34,26 +45,29 @@ class PersonServices with ChangeNotifier {
     userData["lastName"] = lastName;
     userData["email"] = email;
     userData["password"] = password;
+    if (!await file.exists()) {
+      file.create();
+    }
     await file.writeAsString(jsonEncode(userData));
   }
+
   void initServices({bool initUser = true}) {
     try {
       init();
     } on RealmException catch (err) {
       isOnline = false;
     }
-    if(initUser){
-      initPerson();
-    }
-  }
-  void initPerson(){
+    if (initUser) {
       initializePersonLocal();
-      if(currentPerson.email.isEmpty){
+      if (currentPerson.email.isEmpty) {
         initializePersonDB();
       }
+    }
   }
+
   Future<void> init() async {
-    initDB();
+    realm =
+        Realm(Configuration.flexibleSync(app.currentUser!, [Person.schema]));
     realm.subscriptions.update((mutableSubscriptions) {
       mutableSubscriptions.clear();
       mutableSubscriptions.add(realm.all<Person>(),
@@ -62,20 +76,24 @@ class PersonServices with ChangeNotifier {
     await realm.subscriptions.waitForSynchronization();
   }
 
-  void initDB() => realm =
-      Realm(Configuration.flexibleSync(app.currentUser!, [Person.schema]));
-
   void register(
       {required String currentId,
       required String nickName,
       required String firstName,
       required String lastName,
       required String email,
-      required String password}) {
+      required String password}) async {
     try {
       currentPerson = Person(ObjectId(), currentId, nickName, firstName,
-        lastName, email, password);
-      modifyJsonFile(id: currentPerson.id.toString(), userId: currentId, nickName: nickName, firstName: firstName, lastName: lastName, email: email, password: password);
+          lastName, email, password);
+      await modifyJsonFile(
+          id: currentPerson.id.toString(),
+          userId: currentId,
+          nickName: nickName,
+          firstName: firstName,
+          lastName: lastName,
+          email: email,
+          password: password);
       realm.write(() => realm.add<Person>(currentPerson));
     } on RealmException catch (err) {}
     //realm.close();
@@ -94,7 +112,7 @@ class PersonServices with ChangeNotifier {
     }
   }
 
-  void initializePersonLocal() async{
+  void initializePersonLocal() async {
     final file = await rootBundle.loadString(CONSTANTS.USER_FILE_PATH);
     userData = await json.decode(file);
     print(userData['userId']);
@@ -107,7 +125,6 @@ class PersonServices with ChangeNotifier {
         userData['email'] ?? 'lkm',
         userData['password'] ?? 'lkm');
     print(currentPerson.userId);
-
   }
 }
 //https://chat-room-1441f-default-rtdb.europe-west1.firebasedatabase.app

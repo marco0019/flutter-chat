@@ -9,24 +9,25 @@ class Chats extends StatelessWidget {
   Chats({super.key, required this.appServices});
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<PersonServices>(context);
+    //final user = context.select((PersonServices usr) => usr.currentPerson);
+    final user = context.watch<PersonServices>().currentPerson;
     return ListView(children: [
       ChatCard(
-          chatName: user.currentPerson.nickName,
+          chatName: user.nickName,
           lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
           lastDate: DateTime.now(),
           typeOfMessage: 'text',
           isMyMessage: true,
           stateOfMessage: 1),
       ChatCard(
-          chatName: user.currentPerson.userId,
+          chatName: user.userId,
           lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
           lastDate: DateTime.now(),
           typeOfMessage: 'text',
           isMyMessage: false,
           stateOfMessage: 1),
       ChatCard(
-          chatName: user.currentPerson.firstName,
+          chatName: user.firstName,
           lastMessage: 'ciaobdfbddfbdfgbdgbdfgbdg dfgbdfgbdfd dfgbdfboo',
           lastDate: DateTime.now(),
           typeOfMessage: 'text',

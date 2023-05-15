@@ -16,6 +16,6 @@ class _Chat {
   late String typeOfMessage;
 
   late int stateOfMessage;
-  
+
   late ObjectId senderId;
 }

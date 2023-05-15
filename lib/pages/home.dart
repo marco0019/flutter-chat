@@ -26,6 +26,8 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     final appServices = context.watch<AppServices>();
     final friendServices = context.watch<FriendServices>();
+    final personServices =
+        context.select((PersonServices user) => user.currentPerson);
     final List<Widget> pages = [
       Chats(appServices: appServices),
       FriendList(friendServices: friendServices),
@@ -39,28 +41,28 @@ class _Home extends State<Home> {
                 leading: const ChangeTheme(),
                 title: const Text('Chats'),
                 actions: [logout(context, appServices)],
-                bottom: const TabBar(
-                  physics: BouncingScrollPhysics(
+                bottom: TabBar(
+                  physics: const BouncingScrollPhysics(
                       decelerationRate: ScrollDecelerationRate.fast),
                   splashBorderRadius:
                       BorderRadius.all(Radius.elliptical(0, 50)),
                   tabs: [
                     Tab(
-                      child: Row(children: [
+                      child: Row(children: const [
                         Text('Chats'),
                         SizedBox(width: 15),
                         Icon(FontAwesomeIcons.house, size: 15)
                       ]),
                     ),
                     Tab(
-                      child: Row(children: [
+                      child: Row(children: const [
                         Text('Friends'),
                         SizedBox(width: 15),
                         Icon(FontAwesomeIcons.userGroup, size: 15)
                       ]),
                     ),
                     Tab(
-                      child: Row(children: [
+                      child: Row(children: const [
                         Text('Settings'),
                         SizedBox(width: 15),
                         Icon(FontAwesomeIcons.gear, size: 15)

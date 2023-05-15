@@ -7,7 +7,7 @@ class FriendServices with ChangeNotifier {
   late Realm realm;
   App app;
   FriendServices(this.app) {
-    if(app.currentUser != null) {
+    if (app.currentUser != null) {
       init();
     }
   }
@@ -20,17 +20,28 @@ class FriendServices with ChangeNotifier {
           name: 'getAllItemsSubscription');
     });
     await realm.subscriptions.waitForSynchronization();
+    realm.all<Friends>().changes.listen((changes) {
+      friends.clear();
+      for (final Friends item in changes.results
+          .query(r'senderName = $0 OR receivedName = $0', ['marco0'])) {
+        friends.add(item);
+      }
+      notifyListeners();
+    });
   }
 
-  void sendRequest(
-      {required String currentName, required String friendName}) {
+  void sendRequest({required String currentName, required String friendName}) {
+    init();
     try {
       Friends friend = Friends(ObjectId(), currentName, friendName, 'waiting');
       realm.write<Friends>(() => realm.add<Friends>(friend));
-      friends.add(friend);
-      notifyListeners();
+      //friends.add(friend);
+      //notifyListeners();
     } on RealmException catch (err) {
       print(err.message);
     }
   }
+
+  void deleteRequest(
+      {required String currentName, required String receivedName}) {}
 }

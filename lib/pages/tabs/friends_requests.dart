@@ -46,8 +46,11 @@ class _FriendList extends State<FriendList> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: widget.friendServices.friends
                       .map((friend) => FriendItem(
+                            key: Key(friend.id.toString()),
                             friendName: friend.receivedName,
-                            onDelete: () => print('prova'),
+                            onDelete: () => widget.friendServices.deleteRequest(
+                                currentName: currentPerson.nickName,
+                                receivedName: friend.receivedName),
                           ))
                       .toList(),
                 ),
