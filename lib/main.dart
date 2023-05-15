@@ -8,24 +8,7 @@ import 'package:test_chat/utils/constants.dart';
 import 'providers/app_services.dart';
 
 void main() {
-  final App app =
-      App(AppConfiguration(CONSTANTS.ID_APP, baseUrl: CONSTANTS.BASE_URL));
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider<AppServices>(
-        create: (_) => AppServices(app),
-      ),
-      ChangeNotifierProvider<ThemeModel>(
-        create: (_) => ThemeModel(),
-      ),
-      ChangeNotifierProvider<PersonServices>(
-          create: (_) => PersonServices(app)),
-      ChangeNotifierProvider<FriendServices>(
-        create: (_) => FriendServices(app),
-      ),
-    ],
-    child: const Main(),
-  ));
+  runApp(CONSTANTS.PROVIDERS);
 }
 
 class Main extends StatelessWidget {
@@ -37,11 +20,8 @@ class Main extends StatelessWidget {
         child: MaterialApp(
           title: 'Flutter chat',
           themeMode: theme.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          theme: ThemeData.light(
-              useMaterial3:
-                  true).copyWith(
-              colorScheme: const ColorScheme.light(primary: Colors.indigo))
-          ,
+          theme: ThemeData.light(useMaterial3: true).copyWith(
+              colorScheme: const ColorScheme.light(primary: Colors.indigo)),
           darkTheme: ThemeData.dark(useMaterial3: true),
           initialRoute: Provider.of<AppServices>(context, listen: false)
                       .app

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:test_chat/components/friends/friend_item.dart';
 import 'package:test_chat/components/widgets.dart';
+import 'package:test_chat/models/friend_request/friends.dart';
 import 'package:test_chat/providers/friend_services.dart';
 import 'package:test_chat/providers/person_services.dart';
 
@@ -16,6 +17,8 @@ class _FriendList extends State<FriendList> {
   final TextEditingController _friendController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final friendList =
+        context.select((FriendServices services) => services.friends);
     final currentPerson = context.watch<PersonServices>().currentPerson;
     return ListView(
       children: [
@@ -40,26 +43,48 @@ class _FriendList extends State<FriendList> {
         ListTile(
           title: const Text('Friends'),
           isThreeLine: true,
-          subtitle: widget.friendServices.friends.isEmpty
-              ? const Text('You have no friends yet.')
-              : Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: widget.friendServices.friends
-                      .map((friend) => FriendItem(
-                            key: Key(friend.id.toString()),
-                            friendName: friend.receivedName,
-                            onDelete: () => widget.friendServices.deleteRequest(
-                                currentName: currentPerson.nickName,
-                                receivedName: friend.receivedName),
-                          ))
-                      .toList(),
-                ),
+          subtitle: friendListElement(friendList: friendList),
         ),
       ],
     );
   }
-}
 
-/*handleFriend.sendRequest(
-                currentName: appServices.handlePerson.currentPerson.nickName,
-                friendName: _friendController.text)*/
+  Widget friendListElement({required List<Friends> friendList}) {
+    if (friendList.isEmpty) {
+      return const Text('You have no friends yet.');
+    } else {
+      final friendItems = <Widget>[];
+      int index = 0;
+      while (index < friendList.length) {
+        if (friendList[index].isValid) {
+          friendItems.add(FriendItem(
+            friendName: friendList[index].receivedName,
+            onDelete: () =>
+                widget.friendServices.deleteRequest(friend: friendList[index]),
+          ));
+        } else {
+          friendItems.add(const SizedBox());
+        }
+      }
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: friendItems,
+      );
+    }
+  }
+}
+/*
+          subtitle: friendList.isEmpty
+              ? const Text('You have no friends yet.')
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: friendList
+                      .map((friend) => friend.isValid
+                          ? FriendItem(
+                              friendName: friend.receivedName,
+                              onDelete: () => widget.friendServices
+                                  .deleteRequest(
+                                      friend: friend),
+                            )
+                          : const SizedBox())
+                      .toList()),*/

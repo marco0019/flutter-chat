@@ -9,6 +9,7 @@ class FriendServices with ChangeNotifier {
   FriendServices(this.app) {
     if (app.currentUser != null) {
       init();
+      print('COSTRUTTOREEEEEEEE');
     }
   }
   void init() async {
@@ -20,12 +21,14 @@ class FriendServices with ChangeNotifier {
           name: 'getAllItemsSubscription');
     });
     await realm.subscriptions.waitForSynchronization();
+
     realm.all<Friends>().changes.listen((changes) {
       friends.clear();
       for (final Friends item in changes.results
           .query(r'senderName = $0 OR receivedName = $0', ['marco0'])) {
         friends.add(item);
       }
+      print(friends.length);
       notifyListeners();
     });
   }
@@ -42,6 +45,8 @@ class FriendServices with ChangeNotifier {
     }
   }
 
-  void deleteRequest(
-      {required String currentName, required String receivedName}) {}
+  void deleteRequest({required Friends friend}) {
+    realm.write(() => realm.delete(friend));
+    notifyListeners();
+  }
 }
