@@ -11,8 +11,12 @@ import 'package:test_chat/providers/friend_services.dart';
 import 'package:test_chat/providers/person_services.dart';
 import 'package:test_chat/providers/theme.dart';
 
-//import 'package:test_chat/providers/users.json';
-class CONSTANTS {
+/// **ENV class**
+///
+/// This is the class of `ENVIRONMENT` variables.
+///
+/// If you want to configure the realm app change [Docs](https://realm.mongodb.com)
+abstract class ENV {
   static Uri BASE_URL = Uri.parse('https://realm.mongodb.com');
   static const String ID_APP = "realtimeapp-buvbz";
   static Map<String, Widget Function(BuildContext context)> ROUTES = {
@@ -23,21 +27,21 @@ class CONSTANTS {
   /// `assets/users.json`
   static const String USER_FILE_PATH = "assets/users.json";
   static File USER_CREDENTIALS = File(USER_FILE_PATH);
-  static final App APP =
-      App(AppConfiguration(CONSTANTS.ID_APP, baseUrl: CONSTANTS.BASE_URL));
+  static final App APP = App(AppConfiguration(ID_APP, baseUrl: BASE_URL));
+
   /// Multiproviders for my flutter app
   static MultiProvider PROVIDERS = MultiProvider(
     providers: [
       ChangeNotifierProvider<AppServices>(
-        create: (_) => AppServices(CONSTANTS.APP),
+        create: (_) => AppServices(APP),
       ),
       ChangeNotifierProvider<ThemeModel>(
         create: (_) => ThemeModel(),
       ),
       ChangeNotifierProvider<PersonServices>(
-          create: (_) => PersonServices(CONSTANTS.APP)),
+          create: (_) => PersonServices(APP)),
       ChangeNotifierProvider<FriendServices>(
-        create: (_) => FriendServices(CONSTANTS.APP),
+        create: (_) => FriendServices(APP),
       ),
     ],
     child: const Main(),

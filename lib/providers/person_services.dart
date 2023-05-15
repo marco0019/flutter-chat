@@ -22,7 +22,7 @@ class PersonServices with ChangeNotifier {
 
   /// Inizializza l'utente attraverso il file `assets/users.json`
   Future<void> initAssets() async {
-    final file = await rootBundle.loadString(CONSTANTS.USER_FILE_PATH);
+    final file = await rootBundle.loadString(ENV.USER_FILE_PATH);
     userData = await json.decode(file);
     userData['id'] = 0;
   }
@@ -36,7 +36,7 @@ class PersonServices with ChangeNotifier {
       required String lastName,
       required String email,
       required String password}) async {
-    final file = File(CONSTANTS.USER_FILE_PATH);
+    final file = File(ENV.USER_FILE_PATH);
 
     userData["id"] = id;
     userData["userId"] = userId;
@@ -113,7 +113,7 @@ class PersonServices with ChangeNotifier {
   }
 
   void initializePersonLocal() async {
-    final file = await rootBundle.loadString(CONSTANTS.USER_FILE_PATH);
+    final file = await rootBundle.loadString(ENV.USER_FILE_PATH);
     userData = await json.decode(file);
     print(userData['userId']);
     currentPerson = Person(

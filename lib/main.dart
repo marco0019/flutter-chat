@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:realm/realm.dart';
-import 'package:test_chat/providers/friend_services.dart';
-import 'package:test_chat/providers/person_services.dart';
 import 'package:test_chat/providers/theme.dart';
 import 'package:test_chat/utils/constants.dart';
 import 'providers/app_services.dart';
 
-void main() {
-  runApp(CONSTANTS.PROVIDERS);
-}
-
+void main() => runApp(ENV.PROVIDERS);
 class Main extends StatelessWidget {
-  const Main({Key? key}) : super(key: key);
+  const Main({super.key});
   @override
   Widget build(BuildContext context) {
     final theme = Provider.of<ThemeModel>(context);
@@ -23,13 +17,12 @@ class Main extends StatelessWidget {
           theme: ThemeData.light(useMaterial3: true).copyWith(
               colorScheme: const ColorScheme.light(primary: Colors.indigo)),
           darkTheme: ThemeData.dark(useMaterial3: true),
-          initialRoute: Provider.of<AppServices>(context, listen: false)
-                      .app
-                      .currentUser ==
+          initialRoute: context.select(
+                      (AppServices services) => services.app.currentUser) ==
                   null
               ? '/login'
               : '/',
-          routes: CONSTANTS.ROUTES,
+          routes: ENV.ROUTES,
         ),
         onWillPop: () async => false);
   }
